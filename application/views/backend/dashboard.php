@@ -1,6 +1,7 @@
 <?php $this->view('messages') ?>
 
 <!-- Content Row -->
+<?php if($user['role_id'] == 1 ) { ?>
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->
     <?php $IncomeTotal = 0;
@@ -95,6 +96,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="row">
 
@@ -214,6 +216,16 @@
     </div>
 </div>
 </div>
+
+<?php } else { ?>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                Selamat datang di panel pelanggan Icon NET !
+            </div>
+        </div>
+    </div>
+<?php } ?>
 
 <?php $Jan = 0;
 foreach ($incomeJan as $c => $data) {

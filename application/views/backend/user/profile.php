@@ -12,7 +12,11 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="col">
-                        <img style=" display: block;margin-left: auto;margin-right: auto;width: 100%; max-height:450px" class="profile-user-img img-responsive img-profile rounded-circle" src="<?= base_url('assets/images/profile/' . $user['image']) ?>" alt="User profile picture">
+                        <?php if($user['image'] == NULL || $user['image'] == '') { ?>
+                            <img style=" display: block;margin-left: auto;margin-right: auto;width: 450px; max-height:450px" class="profile-user-img img-responsive img-profile rounded-circle" src="<?= base_url('assets/images/profile/ppkosong.png')?>" alt="User profile picture">
+                        <?php } else { ?>
+                            <img style=" display: block;margin-left: auto;margin-right: auto;width: 450px%; max-height:450px" class="profile-user-img img-responsive img-profile rounded-circle" src="<?= base_url('assets/images/profile/' . $user['image']) ?>" alt="User profile picture">
+                        <?php } ?>
                     </div>
                     <h3 class="profile-username text-center mt-2"><?= $user['name'] ?></h3>
                     <h5 class="text-center"><?= $user['email'] ?>

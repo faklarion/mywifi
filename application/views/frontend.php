@@ -52,7 +52,7 @@
     </main>
     <div class="footer">
         <div class="container">
-            Copyright &copy;
+            Copyright &copy; <?php echo date('Y') ?> Icon NET
         </div>
     </div>
 

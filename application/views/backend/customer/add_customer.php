@@ -17,6 +17,11 @@
                 <?= form_error('email', '<small class="text-danger pl-3 ">', '</small>') ?>
             </div>
             <div class="form-group">
+                <label for="password">Password Login</label>
+                <input type="password" id="password" name="password" class="form-control" value="<?= set_value('password') ?>">
+                <?= form_error('password', '<small class="text-danger pl-3 ">', '</small>') ?>
+            </div>
+            <div class="form-group">
                 <label for="no_ktp">No KTP</label>
                 <input type="number" id="no_ktp" name="no_ktp" class="form-control" value="<?= set_value('no_ktp') ?>">
                 <?= form_error('no_ktp', '<small class="text-danger pl-3 ">', '</small>') ?>

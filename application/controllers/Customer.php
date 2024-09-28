@@ -6,7 +6,7 @@ class customer extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model(['customer_m', 'services_m', 'bill_m']);
+        $this->load->model(['customer_m', 'package_m', 'services_m', 'bill_m', 'income_m']);
     }
     public function index()
     {
@@ -19,27 +19,69 @@ class customer extends CI_Controller
 
     public function add()
     {
-
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
         $this->form_validation->set_rules('no_ktp', 'No KTP', 'required|trim|is_unique[customer.no_ktp]');
         $this->form_validation->set_rules('no_wa', 'No Whatsapp', 'required|trim|is_unique[customer.no_wa]');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[customer.email]');
         $this->form_validation->set_message('required', '%s Tidak boleh kosong, Silahkan isi');
         $this->form_validation->set_message('is_unique', '%s Sudah dipakai, Silahkan ganti');
+    
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Add Customer';
             $data['company'] = $this->db->get('company')->row_array();
             $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
             $this->template->load('backend', 'backend/customer/add_customer', $data);
         } else {
+            // Ambil data dari form
             $post = $this->input->post(null, TRUE);
+            
+            // Simpan data customer
             $this->customer_m->add($post);
+            
+            // Dapatkan ID customer yang baru saja diinput
+            $customer_id = $this->db->insert_id();
+    
+            // Data untuk tabel user
+            $data = array(
+                'email'         => $this->input->post('email'),
+                'password'      => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'phone'         => $this->input->post('no_wa'),
+                'address'       => $this->input->post('address'),
+                'role_id'       => 2, // Misalnya role_id 2 untuk customer
+                'is_active'     => 1,
+                'gender'        => 'Male', // Sesuaikan dengan inputan atau default
+                'name'          => $this->input->post('name'),
+                'customer_id'   => $customer_id // Gunakan ID customer yang baru diinput
+            );
+    
+            // Simpan data ke tabel user
+            $this->db->insert('user', $data);
+    
+            // Cek apakah data berhasil disimpan
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('success', 'Data Pelanggan berhasil disimpan');
             }
+    
+            // Redirect ke halaman customer
             echo "<script>window.location='" . site_url('customer') . "'; </script>";
         }
     }
+
+    public function cek_bill()
+    {
+        $data['title'] = 'Cek Tagihan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['customer'] = $this->customer_m->getCustomer()->result();
+        $data['bill'] = $this->bill_m->getInvoice()->result();
+        $data['detail'] = $this->bill_m->getInvoiceDetail()->result();
+        $data['invoice'] = $this->bill_m->invoice_no();
+        $data['company'] = $this->db->get('company')->row_array();
+        // Jika ada data yang ingin dikirim ke view, kirimkan di sini.
+        $this->template->load('backend','frontend/cek_bill_customer', $data);
+    }
+
+    
 
     public function edit($customer_id)
     {
@@ -137,18 +179,12 @@ class customer extends CI_Controller
 
     public function laporanperbulan()//sesuaikan di list
 	{
-
-		
-
+        
 		if (isset($_POST['cetaksemua'])) {
 			$this->data['label'] = "Semua Periode";
 			$this->data['customer'] =  $this->customer_m->get_all();//
 			$this->data['title_web'] = 'Laporan Akta Lahir';	
-		} else {
-			$this->data['label'] = "Bulan $bulanBaru Tahun $tahun";
-			$this->data['customer'] =  $this->customer_m->get_all_bulan($bulan,$tahun);//
-			$this->data['title_web'] = 'Laporan Akta Lahir';
-		}
+        }
 		
         $this->load->view('backend/customer/customer_doc',$this->data);
 	}

@@ -40,7 +40,8 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Dashboard -->
+            <!-- Nav Item - Dashboard Admin -->
+            <?php if($user['role_id'] == 1) { ?>
             <li class="nav-item <?= $title == 'Dashboard'  ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= site_url('dashboard') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -97,6 +98,18 @@
                     </div>
                 </div>
             </li>
+            <?php } else { ?>
+                <li class="nav-item <?= $title == 'Dashboard'  ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('dashboard') ?>">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Beranda</span></a>
+                </li>
+                <li class="nav-item <?= $title == 'Cek Tagihan'  ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('customer/cek_bill') ?>">
+                    <i class="fa fa-table"></i>
+                    <span>Cek Tagihan Saya</span></a>
+                </li>
+            <?php } ?>
 
             <!-- <li class="nav-item <?= $title == 'About My-Wifi' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= site_url('about') ?>">
@@ -137,7 +150,11 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['name']; ?></span>
-                                <img class="img-profile rounded-circle" src="<?= base_url(''); ?>assets/images/profile/<?= $user['image']; ?>" alt="">
+                                <?php if($user['image'] == '' || $user['image'] == NULL) { ?>
+                                    <img class="img-profile rounded-circle" src="<?= base_url(''); ?>assets/images/profile/ppkosong.png" alt="">
+                                <?php } else { ?>
+                                    <img class="img-profile rounded-circle" src="<?= base_url(''); ?>assets/images/profile/<?= $user['image']; ?>" alt="">
+                                <?php } ?>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -175,7 +192,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy</span>
+                        <span>Copyright &copy; <?php echo date('Y') ?> Icon NET</span>
                     </div>
                 </div>
             </footer>
@@ -224,4 +241,6 @@
     <script src="<?= base_url('assets/backend/') ?>js/select2.full.min.js"></script>
 </body>
 
+
 </html>
+

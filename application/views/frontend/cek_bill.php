@@ -23,7 +23,7 @@ if ($customer->num_rows() > 0) { ?>
                 <div class="container">
                     <div class="card border-primary mb-2">
                         <div class="container mt-2">
-                            <h5>Periode <?= indo_month($data->month) ?> 2020</h5>
+                            <h5>Periode <?= indo_month($data->month) ?> <?php echo $data->year?></h5>
                             <div class="row">
                                 <div class="col-3">
                                     No Layanan
