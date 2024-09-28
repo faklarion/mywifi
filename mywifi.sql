@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 06, 2024 at 03:55 AM
--- Server version: 10.4.27-MariaDB
+-- Host: localhost:3306
+-- Generation Time: Sep 28, 2024 at 05:53 AM
+-- Server version: 8.0.30
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `company` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `company_name` varchar(100) NOT NULL,
   `sub_name` varchar(128) NOT NULL,
   `description` text NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `company` (
   `owner` varchar(128) NOT NULL,
   `video` text NOT NULL,
   `address` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
@@ -59,14 +59,14 @@ INSERT INTO `company` (`id`, `company_name`, `sub_name`, `description`, `picture
 --
 
 CREATE TABLE `customer` (
-  `customer_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `no_services` varchar(128) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `address` text NOT NULL,
-  `no_wa` varchar(128) NOT NULL,
-  `no_ktp` varchar(128) NOT NULL,
-  `created` int(11) NOT NULL
+  `customer_id` int NOT NULL,
+  `name` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_services` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` text COLLATE utf8mb4_general_ci NOT NULL,
+  `no_wa` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_ktp` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `created` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -74,9 +74,10 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`, `no_wa`, `no_ktp`, `created`) VALUES
-(4, 'Eka Erlina Andayani', '230806132134', 'erlyn@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', 1691320933),
-(5, 'Muhammad Dony Rifani', '230806132222', 'doni@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', 1691320965),
-(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', 1691802852);
+(4, 'Eka Erlina Andayani', '230806132134', 'eka@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', 1691320933),
+(5, 'Muhammad Dony Rifani', '230806132222', 'dony@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', 1691320965),
+(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', 1691802852),
+(7, 'Suher', '240928024259', 'suher@gmail.com', 'Bjb tungkaran ', '082183291920', '637129219238', 1727491407);
 
 -- --------------------------------------------------------
 
@@ -85,11 +86,11 @@ INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`
 --
 
 CREATE TABLE `expenditure` (
-  `expenditure_id` int(11) NOT NULL,
-  `date_payment` varchar(125) NOT NULL,
-  `nominal` varchar(125) NOT NULL,
-  `remark` text NOT NULL,
-  `created` int(11) NOT NULL
+  `expenditure_id` int NOT NULL,
+  `date_payment` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -99,11 +100,11 @@ CREATE TABLE `expenditure` (
 --
 
 CREATE TABLE `income` (
-  `income_id` int(11) NOT NULL,
-  `date_payment` varchar(125) NOT NULL,
-  `nominal` varchar(125) NOT NULL,
-  `remark` text NOT NULL,
-  `created` int(11) NOT NULL
+  `income_id` int NOT NULL,
+  `date_payment` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -121,14 +122,14 @@ INSERT INTO `income` (`income_id`, `date_payment`, `nominal`, `remark`, `created
 --
 
 CREATE TABLE `invoice` (
-  `invoice_id` int(11) NOT NULL,
-  `invoice` varchar(128) NOT NULL,
-  `month` varchar(11) NOT NULL,
-  `year` int(11) NOT NULL,
-  `no_services` varchar(128) NOT NULL,
-  `status` varchar(128) NOT NULL,
-  `created` int(11) NOT NULL,
-  `date_payment` int(11) DEFAULT NULL
+  `invoice_id` int NOT NULL,
+  `invoice` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `month` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `year` int NOT NULL,
+  `no_services` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `created` int NOT NULL,
+  `date_payment` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -147,15 +148,15 @@ INSERT INTO `invoice` (`invoice_id`, `invoice`, `month`, `year`, `no_services`, 
 --
 
 CREATE TABLE `invoice_detail` (
-  `detail_id` int(11) NOT NULL,
-  `invoice_id` varchar(128) NOT NULL,
-  `price` varchar(125) NOT NULL,
-  `qty` varchar(125) NOT NULL,
-  `disc` varchar(128) NOT NULL,
-  `remark` text NOT NULL,
-  `total` varchar(128) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL
+  `detail_id` int NOT NULL,
+  `invoice_id` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `price` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `qty` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `disc` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
+  `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `item_id` int NOT NULL,
+  `category_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -174,11 +175,11 @@ INSERT INTO `invoice_detail` (`detail_id`, `invoice_id`, `price`, `qty`, `disc`,
 --
 
 CREATE TABLE `package_category` (
-  `p_category_id` int(11) NOT NULL,
-  `name` varchar(125) NOT NULL,
-  `description` text NOT NULL,
-  `date_created` int(11) NOT NULL,
-  `date_updated` int(11) NOT NULL
+  `p_category_id` int NOT NULL,
+  `name` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `date_created` int NOT NULL,
+  `date_updated` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -196,14 +197,14 @@ INSERT INTO `package_category` (`p_category_id`, `name`, `description`, `date_cr
 --
 
 CREATE TABLE `package_item` (
-  `p_item_id` int(11) NOT NULL,
-  `name` varchar(125) NOT NULL,
-  `price` varchar(125) NOT NULL,
-  `picture` text NOT NULL,
-  `description` text NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `date_created` int(11) NOT NULL,
-  `date_update` int(11) NOT NULL
+  `p_item_id` int NOT NULL,
+  `name` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `price` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `picture` text COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `category_id` int NOT NULL,
+  `date_created` int NOT NULL,
+  `date_update` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -220,20 +221,42 @@ INSERT INTO `package_item` (`p_item_id`, `name`, `price`, `picture`, `descriptio
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pengaduan`
+--
+
+CREATE TABLE `pengaduan` (
+  `pengaduan_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `keluhan` text NOT NULL,
+  `tanggal_pengaduan` datetime NOT NULL,
+  `status` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pengaduan`
+--
+
+INSERT INTO `pengaduan` (`pengaduan_id`, `user_id`, `keluhan`, `tanggal_pengaduan`, `status`) VALUES
+(3, 10, 'Tidak bisa konek', '2024-09-28 13:24:59', 2),
+(4, 11, 'Pagat kabel', '2024-09-28 13:51:02', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `services`
 --
 
 CREATE TABLE `services` (
-  `services_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `no_services` varchar(125) NOT NULL,
-  `qty` varchar(128) NOT NULL,
-  `price` varchar(128) NOT NULL,
-  `disc` varchar(128) DEFAULT NULL,
-  `total` varchar(128) NOT NULL,
-  `remark` text NOT NULL,
-  `services_create` int(11) NOT NULL
+  `services_id` int NOT NULL,
+  `item_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  `no_services` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
+  `qty` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `price` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `disc` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
+  `services_create` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -243,7 +266,8 @@ CREATE TABLE `services` (
 INSERT INTO `services` (`services_id`, `item_id`, `category_id`, `no_services`, `qty`, `price`, `disc`, `total`, `remark`, `services_create`) VALUES
 (5, 3, 3, '230806132134', '1', '216730', '0', '216730', '', 1691321020),
 (6, 5, 3, '230806132222', '1', '296650', '0', '296650', '', 1691321040),
-(7, 7, 3, '230812031355', '1', '707350', '0', '707350', '', 1691802912);
+(7, 7, 3, '230812031355', '1', '707350', '0', '707350', '', 1691802912),
+(8, 4, 3, '240928024259', '1', '280000', '0', '280000', '', 1727493436);
 
 -- --------------------------------------------------------
 
@@ -252,7 +276,7 @@ INSERT INTO `services` (`services_id`, `item_id`, `category_id`, `no_services`, 
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(100) NOT NULL,
   `name` varchar(128) NOT NULL,
@@ -260,20 +284,25 @@ CREATE TABLE `user` (
   `address` text NOT NULL,
   `image` varchar(225) NOT NULL,
   `role_id` text NOT NULL,
-  `is_active` int(1) NOT NULL,
-  `date_created` int(11) NOT NULL,
-  `gender` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `is_active` int NOT NULL,
+  `date_created` int NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `customer_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `image`, `role_id`, `is_active`, `date_created`, `gender`) VALUES
-(1, 'ginginabdulgoni@gmail.com', '$2y$10$9a7b78YWmpUO1yS3Q2CeMOuWvemjp4Q13q52ykg5alI/f9NrICqB.', 'Gingin Abdul Goni', '082337481227', 'Kp. Ciparay', 'default1.jpg', '1', 1, 1565599788, 'Male'),
-(7, '11duabelasproject@gmail.com', '$2y$10$9a7b78YWmpUO1yS3Q2CeMOuWvemjp4Q13q52ykg5alI/f9NrICqB.', 'Rosita Wulandari', '085283935826', 'Perum Baru Paros, Tarogong Kaler - Garut', 'default.jpg', '1', 1, 1574219676, 'Male'),
-(8, 'faisal@gmail.com', '$2y$10$QaXllbTFMIatgTTDXnaycONUkbvy6PKue4N/6idh9e0Nr8dVLSIRW', 'Faisal', '08821321', 'Mangga', 'image_750x_63bc1e0a6531d.jpg', '1', 1, 1574219676, 'Male'),
-(9, 'admin@gmail.com', '$2y$10$4RLCItJ5EOr05NC3rPskjej0q3HmFdPrBxcUqFjscDM3TD3y14XyW', 'Admin', '082192132912', 'Jl Karang Anyar 1 GG Arrozak 2', 'logo_rinaya_crop.JPG', '1', 1, 1574219676, 'Male');
+INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `image`, `role_id`, `is_active`, `date_created`, `gender`, `customer_id`) VALUES
+(1, 'ginginabdulgoni@gmail.com', '$2y$10$9a7b78YWmpUO1yS3Q2CeMOuWvemjp4Q13q52ykg5alI/f9NrICqB.', 'Gingin Abdul Goni', '082337481227', 'Kp. Ciparay', 'default1.jpg', '1', 1, 1565599788, 'Male', NULL),
+(7, '11duabelasproject@gmail.com', '$2y$10$9a7b78YWmpUO1yS3Q2CeMOuWvemjp4Q13q52ykg5alI/f9NrICqB.', 'Rosita Wulandari', '085283935826', 'Perum Baru Paros, Tarogong Kaler - Garut', 'default.jpg', '1', 1, 1574219676, 'Male', NULL),
+(8, 'faisal@gmail.com', '$2y$10$QaXllbTFMIatgTTDXnaycONUkbvy6PKue4N/6idh9e0Nr8dVLSIRW', 'Faisal', '08821321', 'Mangga', 'image_750x_63bc1e0a6531d.jpg', '1', 1, 1574219676, 'Male', NULL),
+(9, 'admin@gmail.com', '$2y$10$4RLCItJ5EOr05NC3rPskjej0q3HmFdPrBxcUqFjscDM3TD3y14XyW', 'Admin', '082192132912', 'Jl Karang Anyar 1 GG Arrozak 2', 'logo_rinaya_crop.JPG', '1', 1, 1574219676, 'Male', NULL),
+(10, 'suher@gmail.com', '$2y$10$6.EsimzGRu63HbweFlEmveAs9WlDU8/ovCpphh/u0F.upgOg5F1Mi', 'Suher', '082183291920', ' Jl Mentaos Raya', '', '2', 1, 0, 'Male', 7),
+(11, 'eka@gmail.com', '$2y$10$B.ofNRBB5qBcqreibXwRn.ICmYQZLBqM8PLE82xmPbYu3iuDiGcLa', 'Eka', '08535003142152', 'Bjb tungkaran ', '', '2', 1, 0, 'Male', 4),
+(12, 'dony@gmail.com', '$2y$10$uoRmJwL8S9M0VTvMSh69E.TBKyHXfS7cVjhBNd6ga7.PszXb2Opj6', 'Muhammad Dony Rifani', '083142141231', 'Jl Murung Raya ', '', '2', 1, 0, 'Male', 5),
+(13, 'rahmat@gmail.com', '$2y$10$.jBrJkCGFpQk6e4GlVW1ke37Mt4/omD9cJRgMgDBLsMzqAnSmRB06', 'Muhammad Rahmatullah', '0853547183', ' asad', '', '2', 1, 0, 'Male', 6);
 
 -- --------------------------------------------------------
 
@@ -282,11 +311,11 @@ INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `imag
 --
 
 CREATE TABLE `user_token` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `email` varchar(128) NOT NULL,
   `token` varchar(128) NOT NULL,
-  `date_created` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `date_created` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_token`
@@ -364,6 +393,12 @@ ALTER TABLE `package_item`
   ADD KEY `category_id` (`category_id`);
 
 --
+-- Indexes for table `pengaduan`
+--
+ALTER TABLE `pengaduan`
+  ADD PRIMARY KEY (`pengaduan_id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -391,61 +426,67 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `expenditure`
 --
 ALTER TABLE `expenditure`
-  MODIFY `expenditure_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `expenditure_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `income`
 --
 ALTER TABLE `income`
-  MODIFY `income_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `income_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `invoice_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `package_category`
 --
 ALTER TABLE `package_category`
-  MODIFY `p_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `p_category_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `package_item`
 --
 ALTER TABLE `package_item`
-  MODIFY `p_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `p_item_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `pengaduan`
+--
+ALTER TABLE `pengaduan`
+  MODIFY `pengaduan_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

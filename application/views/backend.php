@@ -70,6 +70,11 @@
                     <i class="fa fa-fw fa-tasks"></i>
                     <span>Tagihan</span></a>
             </li>
+            <li class="nav-item <?= $title == 'Pengaduan Pelanggan'  ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('pengaduan') ?>">
+                    <i class="fa fa-comment"></i>
+                    <span>Pengaduan Pelanggan</span></a>
+                </li>
             <li class="nav-item <?= $title == 'Income' | $title == 'Expenditure'  ? 'active' : '' ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-dollar-sign"></i>
@@ -108,6 +113,11 @@
                 <a class="nav-link" href="<?= site_url('customer/cek_bill') ?>">
                     <i class="fa fa-table"></i>
                     <span>Cek Tagihan Saya</span></a>
+                </li>
+                <li class="nav-item <?= $title == 'Pengaduan Pelanggan'  ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('pengaduan') ?>">
+                    <i class="fa fa-comment"></i>
+                    <span>Pengaduan Pelanggan</span></a>
                 </li>
             <?php } ?>
 
