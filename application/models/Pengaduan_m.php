@@ -39,8 +39,9 @@ class Pengaduan_m extends CI_Model
             $this->db->where('no_services', $no_services);
         }
         $query = $this->db->get();
-        return $query;s
+        return $query;
     }
+
     public function getInvoicepengaduan($no_services = null)
     {
         $this->db->select('*');
