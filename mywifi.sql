@@ -230,7 +230,7 @@ CREATE TABLE `pengaduan` (
   `keluhan` text NOT NULL,
   `tanggal_pengaduan` datetime NOT NULL,
   `status` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pengaduan`
