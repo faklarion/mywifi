@@ -223,4 +223,21 @@ class customer extends CI_Controller
             }
         }
     }
+
+    public function update_pemasangan()
+    {
+        $customer_id = $this->input->post('customer_id');
+        
+        $data = array(
+            'status_pasang' => 1,
+        );
+
+        $this->db->where('customer_id', $customer_id);
+        $this->db->update('customer', $data);
+
+        $this->session->set_flashdata('success', 'Data berhasil diperbarui');
+                
+        redirect('customer');
+        
+    }
 }

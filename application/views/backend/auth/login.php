@@ -38,6 +38,16 @@
                                     <div class="text-center">
                                         <img class="mb-3" style=" display: block;margin-left: auto;margin-right: auto;width: 100%;" src="<?= base_url('assets/images/') ?><?= $company['logo'] ?>" alt="">
                                         <?php $this->view('messages') ?>
+                                        <?php 
+                                            if($this->session->flashdata('pesan')) { 
+                                        ?>
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong><?= $this->session->flashdata('pesan'); ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                     <form action="" method="post" class="user">
                                         <div class="form-group">
@@ -52,7 +62,9 @@
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Masuk
                                         </button>
+                                        <a href="<?= base_url('auth/register')?>" class="btn btn-success btn-user btn-block mt-2">Registrasi</a>
                                     </form>
+                                    
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="<?= site_url('auth/forgotpassword') ?>" style="text-decoration: none">Lupa Password ?</a>

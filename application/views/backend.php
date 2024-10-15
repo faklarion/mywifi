@@ -65,6 +65,7 @@
                     </div>
                 </div>
             </li>
+            
             <li class="nav-item <?= $title == 'Bill' | $title == 'Add Bill' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= site_url('bill') ?>">
                     <i class="fa fa-fw fa-tasks"></i>
@@ -103,11 +104,16 @@
                     </div>
                 </div>
             </li>
-            <?php } else { ?>
+            <?php } elseif($user['role_id'] == 2) { ?>
                 <li class="nav-item <?= $title == 'Dashboard'  ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= site_url('dashboard') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
+                </li>
+                <li class="nav-item <?= $title == 'Customer' | $title == 'Add Customer' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('customer') ?>">
+                    <i class="fas fa-users fa-tachometer-alt"></i>
+                    <span>Data Paket Saya</span></a>
                 </li>
                 <li class="nav-item <?= $title == 'Cek Tagihan'  ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= site_url('customer/cek_bill') ?>">
@@ -118,6 +124,17 @@
                 <a class="nav-link" href="<?= site_url('pengaduan') ?>">
                     <i class="fa fa-comment"></i>
                     <span>Pengaduan Pelanggan</span></a>
+                </li>
+            <?php } else { ?>
+                <li class="nav-item <?= $title == 'Dashboard'  ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('dashboard') ?>">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Beranda</span></a>
+                </li>
+                <li class="nav-item <?= $title == 'Customer' | $title == 'Add Customer' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('customer') ?>">
+                    <i class="fas fa-users fa-tachometer-alt"></i>
+                    <span>Data Customer</span></a>
                 </li>
             <?php } ?>
 

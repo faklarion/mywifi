@@ -19,7 +19,12 @@ if ($services->num_rows() > 0) {
             </td>
             <td style="text-align: right"><?= indo_currency($data->total) ?></td>
             <td><?= $data->remark ?></td>
-            <td style="text-align: center"><a href="#" id="update" data-services_id="<?= $data->services_id ?>" data-item_name="<?= $data->item_name ?>" data-category_name="<?= $data->category_name ?>" data-price="<?= $data->services_price ?>" data-qty="<?= $data->qty ?>" data-disc="<?= $data->disc ?>" data-remark="<?= $data->remark ?>" data-no_services="<?= $data->no_services ?>" data-total="<?= $data->total ?>" data-toggle="modal" data-target="#modal-item-edit" title="Edit"><i class="fa fa-edit" style="font-size:25px"></i></a> <a href="#" data-toggle="modal" data-target="#DeleteModal<?= $data->services_id ?>" title="Hapus"><i class="fa fa-trash" style="font-size:25px; color:red"></i></a></td>
+            <td style="text-align: center">
+                <?php if($this->session->userdata('role_id') == 1) : ?>
+                    <a href="#" id="update" data-services_id="<?= $data->services_id ?>" data-item_name="<?= $data->item_name ?>" data-category_name="<?= $data->category_name ?>" data-price="<?= $data->services_price ?>" data-qty="<?= $data->qty ?>" data-disc="<?= $data->disc ?>" data-remark="<?= $data->remark ?>" data-no_services="<?= $data->no_services ?>" data-total="<?= $data->total ?>" data-toggle="modal" data-target="#modal-item-edit" title="Edit"><i class="fa fa-edit" style="font-size:25px"></i></a> 
+                <?php endif ?>
+                    <a href="#" data-toggle="modal" data-target="#DeleteModal<?= $data->services_id ?>" title="Hapus"><i class="fa fa-trash" style="font-size:25px; color:red"></i></a>
+            </td>
         </tr>
 
 <?php

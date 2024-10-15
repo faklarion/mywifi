@@ -17,6 +17,15 @@ class auth extends CI_Controller
             $this->_login();
         }
     }
+
+    public function register()
+    {
+        $data['title'] = 'Register';
+        $data['company'] = $this->db->get('company')->row_array();
+        $this->load->view('backend/auth/register', $data);
+    }
+
+
     private function _login()
     {
         $email = $this->input->post('email');
@@ -33,6 +42,7 @@ class auth extends CI_Controller
                         'login' => true,
                         'id' => $user['id'],
                         'email' => $user['email'],
+                        'customer_id' => $user['customer_id'],
                         'role_id' => $user['role_id']
                     ];
                     $this->session->set_userdata($data);
@@ -61,14 +71,14 @@ class auth extends CI_Controller
     private function _sendEmail($token, $type)
     {
         $config = [
-            'protocol'  => 'smtp',
+            'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_user' => 'Alamat Email Google', // isi Alamat email
             'smtp_pass' => 'Password Email Google', // Isi Password email
             'smtp_port' => 465,
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'newline'   => "\r\n"
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
         ];
         $this->email->initialize($config);
 
@@ -229,4 +239,92 @@ class auth extends CI_Controller
             redirect('auth');
         }
     }
+
+    public function register_action()
+{
+    // Aturan validasi formulir
+    
+        // Mengambil data dari form
+        $name = $this->input->post('name');
+        $email = $this->input->post('email');
+        $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+        $phone = $this->input->post('phone');
+        $address = $this->input->post('address');
+        $gender = $this->input->post('gender');
+        $no_ktp = $this->input->post('no_ktp');
+
+        // Konfigurasi upload gambar
+        $config['upload_path'] = './assets/images/profile/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        $config['max_size'] = 2048; // 2MB
+        $config['file_name'] = uniqid(); // Nama file unik
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('image')) {
+            // Jika gagal upload gambar, kembalikan error
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('register', $error);
+        } else {
+            // Jika berhasil upload gambar
+            $imageData = $this->upload->data();
+            $imageName = $imageData['file_name'];
+
+            // Simpan data ke database
+
+            $data_cust = [
+                'name' => $name,
+                'no_services' => Date('ymdHis'),
+                'email' => $email,
+                'address' => $address,
+                'no_ktp' => $no_ktp,
+                'no_wa' => $phone,
+                'created' => time(),
+            ];
+
+            $this->db->insert('customer', $data_cust);
+            $customer_id = $this->db->insert_id();
+
+            $data = [
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+                'phone' => $phone,
+                'address' => $address,
+                'gender' => $gender,
+                'image' => $imageName,
+                'role_id' => '2', // Default role sebagai user
+                'date_created' => time(), // Timestamp
+                'is_active' => '1',
+                'customer_id' => $customer_id,
+            ];
+
+            $this->db->insert('user', $data);
+
+            // Redirect ke halaman sukses atau login
+            $this->session->set_flashdata('pesan','Registrasi selesai ! silakan coba untuk login !');
+            redirect(base_url('auth'));
+        }
+}
+
+// Callback untuk validasi file gambar
+public function file_check($str)
+{
+    $allowed_mime_type_arr = ['image/jpeg', 'image/png', 'image/jpg'];
+    $mime = $_FILES['image']['type']; // Mengambil MIME dari $_FILES
+
+    if (isset($_FILES['image']['name']) && $_FILES['image']['name'] != "") {
+        if (in_array($mime, $allowed_mime_type_arr)) {
+            return true;
+        } else {
+            $this->form_validation->set_message('file_check', 'Please select only jpeg/png file.');
+            return false;
+        }
+    } else {
+        $this->form_validation->set_message('file_check', 'Please choose a file to upload.');
+        return false;
+    }
+}
+
+
 }

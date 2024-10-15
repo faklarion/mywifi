@@ -1,15 +1,16 @@
 <!-- Page Heading -->
+<?php if($this->session->userdata('role_id') == 1) : ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <a href="<?= site_url('customer/add') ?>" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
 </div>
+<?php endif ?>
 
+<?php if($this->session->userdata('role_id') == 1) : ?>
 <form action="<?php echo site_url("customer/laporanperbulan");?>" method="post">
-
-                        
-                        <br>
-                        <input type="submit" name="cetaksemua" value="Cetak Semua" class="btn btn-warning">
-                    </form>
-
+<br>
+<input type="submit" name="cetaksemua" value="Cetak Semua" class="btn btn-warning">
+</form>
+<?php endif ?>
 
 <?php $this->view('messages') ?>
 <!-- DataTales Example -->
@@ -30,6 +31,7 @@
                         <th>No Telp.</th>
                         <th style="width: 400px">Tagihan / Bulan</th>
                         <th>Alamat</th>
+                        <th>Status Pemasangan</th>
                         <th style="text-align: center">Aksi</th>
                     </tr>
                 </thead>
@@ -43,6 +45,7 @@
                         <th>No Telp.</th>
                         <th>Tagihan / Bulan</th>
                         <th>Alamat</th>
+                        <th>Status Pemasangan</th>
                         <th style="text-align: center;width: 100px">Aksi</th>
                     </tr>
                 </tfoot>
@@ -52,7 +55,9 @@
                         <tr>
                             <td style="text-align: center"><?= $no++ ?>.</td>
                             <td><?= $data->no_services ?> <br>
+                                <?php if($this->session->userdata('role_id') != 3) : ?>
                                 <a href="<?= site_url('services/detail/') ?><?= $data->no_services ?>" class="btn btn-success" style="font-size: smaller">Rincian Paket</a>
+                                <?php endif ?>
                             </td>
                             <td><?= $data->name ?></td>
                             <td><?= $data->email ?></td>
@@ -71,7 +76,26 @@
 
                             </td>
                             <td><?= $data->address ?></td>
-                            <td style="text-align: center"><a href="<?= site_url('customer/edit/') ?><?= $data->customer_id ?>" title="Edit"><i class="fa fa-edit" style="font-size:25px"></i></a> <a href="" data-toggle="modal" data-target="#DeleteModal<?= $data->customer_id ?>" title="Hapus"><i class="fa fa-trash" style="font-size:25px; color:red"></i></a></td>
+                            <td>
+                                <?php 
+                                    if($data->status_pasang == 0) {
+                                        echo '<button class="btn btn-sm btn-danger">Belum Dipasang !</button>';
+                                    } elseif($data->status_pasang == 1) {
+                                        echo '<button class="btn btn-sm btn-info">Sudah Dipasang</button>';
+                                    }
+                                ?>
+                            </td>
+                            <td style="text-align: center">
+                                <?php if($this->session->userdata('role_id') == 1) : ?>    
+                                    <a href="<?= site_url('customer/edit/') ?><?= $data->customer_id ?>" title="Edit"><i class="fa fa-edit" style="font-size:25px"></i></a> 
+                                    <a href="" data-toggle="modal" data-target="#DeleteModal<?= $data->customer_id ?>" title="Hapus"><i class="fa fa-trash" style="font-size:25px; color:red"></i></a>
+                                <?php endif ?>    
+                                <?php if($this->session->userdata('role_id') == 3) : ?> 
+                                    <?php if($data->status_pasang == 0) { ?>
+                                        <a href="" data-toggle="modal" data-target="#updateModal<?= $data->customer_id ?>" title="Update"><i class="fa fa-check" style="font-size:25px; color:green"></i></a>
+                                    <?php } ?>
+                                <?php endif ?>    
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -100,6 +124,34 @@ foreach ($customer as $r => $data) { ?>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                    <?php echo form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<!-- Modal Update -->
+<?php
+foreach ($customer as $r => $data) { ?>
+    <div class="modal fade" id="updateModal<?= $data->customer_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Pemasangan Pelanggan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php echo form_open_multipart('customer/update_pemasangan') ?>
+                    <input type="hidden" name="customer_id" value="<?= $data->customer_id ?>" class="form-control">
+                    <input type="hidden" name="no_services" value="<?= $data->no_services ?>" class="form-control">
+                        Sudah melakukan pemasangan No Layanan <?= $data->no_services ?> A/N <?= $data->name ?> ?
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Sudah</button>
                     </div>
                     <?php echo form_close() ?>
                 </div>

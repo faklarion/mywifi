@@ -27,6 +27,10 @@
                         <li class="nav-item mx-md-2">
                             <a href="<?= site_url('front') ?>" class="nav-link <?= $title == 'Home' ? 'active' : '' ?>">Beranda</a>
                         </li>
+
+                        <li class="nav-item mx-md-2">
+                            <a href="<?= site_url('auth/register') ?>" class="nav-link <?= $title == 'Daftar' ? 'active' : '' ?>">Daftar</a>
+                        </li>
                         
                         <!-- Mobile Button -->
                         <a href="<?= site_url('auth') ?>" style="text-decoration: none">

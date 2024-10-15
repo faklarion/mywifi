@@ -13,6 +13,10 @@ class Customer_m extends CI_Model
         if ($no_services != null) {
             $this->db->where('no_services', $no_services);
         }
+        if($this->session->userdata('role_id') == 2) {
+            $this->db->where('customer_id', $this->session->userdata('customer_id'));
+        }
+        $this->db->order_by('customer_id', 'DESC');
         $query = $this->db->get();
         return $query;
     }
@@ -21,7 +25,7 @@ class Customer_m extends CI_Model
 
     function get_all()
     {
-        $this->db->select('customer_id,name,no_services,email,address,no_wa,no_ktp,created');
+        $this->db->select('customer_id,name,no_services,email,address,no_wa,no_ktp,created,status_pasang');
         
         return $this->db->get('customer')->result();
     }

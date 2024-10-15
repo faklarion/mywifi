@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 28, 2024 at 05:53 AM
--- Server version: 8.0.30
--- PHP Version: 7.4.33
+-- Waktu pembuatan: 15 Okt 2024 pada 04.11
+-- Versi server: 8.0.30
+-- Versi PHP: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `company`
+-- Struktur dari tabel `company`
 --
 
 CREATE TABLE `company` (
@@ -46,7 +46,7 @@ CREATE TABLE `company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `company`
+-- Dumping data untuk tabel `company`
 --
 
 INSERT INTO `company` (`id`, `company_name`, `sub_name`, `description`, `picture`, `logo`, `whatsapp`, `facebook`, `twitter`, `instagram`, `phone`, `email`, `owner`, `video`, `address`) VALUES
@@ -55,7 +55,7 @@ INSERT INTO `company` (`id`, `company_name`, `sub_name`, `description`, `picture
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Struktur dari tabel `customer`
 --
 
 CREATE TABLE `customer` (
@@ -66,23 +66,25 @@ CREATE TABLE `customer` (
   `address` text COLLATE utf8mb4_general_ci NOT NULL,
   `no_wa` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `no_ktp` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `created` int NOT NULL
+  `created` int NOT NULL,
+  `status_pasang` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `customer`
+-- Dumping data untuk tabel `customer`
 --
 
-INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`, `no_wa`, `no_ktp`, `created`) VALUES
-(4, 'Eka Erlina Andayani', '230806132134', 'eka@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', 1691320933),
-(5, 'Muhammad Dony Rifani', '230806132222', 'dony@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', 1691320965),
-(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', 1691802852),
-(7, 'Suher', '240928024259', 'suher@gmail.com', 'Bjb tungkaran ', '082183291920', '637129219238', 1727491407);
+INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`, `no_wa`, `no_ktp`, `created`, `status_pasang`) VALUES
+(4, 'Eka Erlina Andayani', '230806132134', 'eka@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', 1691320933, 1),
+(5, 'Muhammad Dony Rifani', '230806132222', 'dony@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', 1691320965, 1),
+(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', 1691802852, 1),
+(7, 'Suher', '240928024259', 'suher@gmail.com', 'Bjb tungkaran ', '082183291920', '637129219238', 1727491407, 1),
+(9, 'Udin', '241015031017', 'udin@gmail.com', 'Jl Mangga', '0882121921', '6371020504029321', 1728961817, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `expenditure`
+-- Struktur dari tabel `expenditure`
 --
 
 CREATE TABLE `expenditure` (
@@ -96,7 +98,7 @@ CREATE TABLE `expenditure` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `income`
+-- Struktur dari tabel `income`
 --
 
 CREATE TABLE `income` (
@@ -108,7 +110,7 @@ CREATE TABLE `income` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `income`
+-- Dumping data untuk tabel `income`
 --
 
 INSERT INTO `income` (`income_id`, `date_payment`, `nominal`, `remark`, `created`) VALUES
@@ -118,7 +120,7 @@ INSERT INTO `income` (`income_id`, `date_payment`, `nominal`, `remark`, `created
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invoice`
+-- Struktur dari tabel `invoice`
 --
 
 CREATE TABLE `invoice` (
@@ -133,7 +135,7 @@ CREATE TABLE `invoice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `invoice`
+-- Dumping data untuk tabel `invoice`
 --
 
 INSERT INTO `invoice` (`invoice_id`, `invoice`, `month`, `year`, `no_services`, `status`, `created`, `date_payment`) VALUES
@@ -144,7 +146,7 @@ INSERT INTO `invoice` (`invoice_id`, `invoice`, `month`, `year`, `no_services`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invoice_detail`
+-- Struktur dari tabel `invoice_detail`
 --
 
 CREATE TABLE `invoice_detail` (
@@ -160,7 +162,7 @@ CREATE TABLE `invoice_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `invoice_detail`
+-- Dumping data untuk tabel `invoice_detail`
 --
 
 INSERT INTO `invoice_detail` (`detail_id`, `invoice_id`, `price`, `qty`, `disc`, `remark`, `total`, `item_id`, `category_id`) VALUES
@@ -171,7 +173,7 @@ INSERT INTO `invoice_detail` (`detail_id`, `invoice_id`, `price`, `qty`, `disc`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `package_category`
+-- Struktur dari tabel `package_category`
 --
 
 CREATE TABLE `package_category` (
@@ -183,7 +185,7 @@ CREATE TABLE `package_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `package_category`
+-- Dumping data untuk tabel `package_category`
 --
 
 INSERT INTO `package_category` (`p_category_id`, `name`, `description`, `date_created`, `date_updated`) VALUES
@@ -193,7 +195,7 @@ INSERT INTO `package_category` (`p_category_id`, `name`, `description`, `date_cr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `package_item`
+-- Struktur dari tabel `package_item`
 --
 
 CREATE TABLE `package_item` (
@@ -208,7 +210,7 @@ CREATE TABLE `package_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `package_item`
+-- Dumping data untuk tabel `package_item`
 --
 
 INSERT INTO `package_item` (`p_item_id`, `name`, `price`, `picture`, `description`, `category_id`, `date_created`, `date_update`) VALUES
@@ -221,7 +223,7 @@ INSERT INTO `package_item` (`p_item_id`, `name`, `price`, `picture`, `descriptio
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengaduan`
+-- Struktur dari tabel `pengaduan`
 --
 
 CREATE TABLE `pengaduan` (
@@ -230,10 +232,10 @@ CREATE TABLE `pengaduan` (
   `keluhan` text NOT NULL,
   `tanggal_pengaduan` datetime NOT NULL,
   `status` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `pengaduan`
+-- Dumping data untuk tabel `pengaduan`
 --
 
 INSERT INTO `pengaduan` (`pengaduan_id`, `user_id`, `keluhan`, `tanggal_pengaduan`, `status`) VALUES
@@ -243,7 +245,7 @@ INSERT INTO `pengaduan` (`pengaduan_id`, `user_id`, `keluhan`, `tanggal_pengadua
 -- --------------------------------------------------------
 
 --
--- Table structure for table `services`
+-- Struktur dari tabel `services`
 --
 
 CREATE TABLE `services` (
@@ -260,7 +262,7 @@ CREATE TABLE `services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `services`
+-- Dumping data untuk tabel `services`
 --
 
 INSERT INTO `services` (`services_id`, `item_id`, `category_id`, `no_services`, `qty`, `price`, `disc`, `total`, `remark`, `services_create`) VALUES
@@ -272,7 +274,7 @@ INSERT INTO `services` (`services_id`, `item_id`, `category_id`, `no_services`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -291,7 +293,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `image`, `role_id`, `is_active`, `date_created`, `gender`, `customer_id`) VALUES
@@ -300,14 +302,16 @@ INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `imag
 (8, 'faisal@gmail.com', '$2y$10$QaXllbTFMIatgTTDXnaycONUkbvy6PKue4N/6idh9e0Nr8dVLSIRW', 'Faisal', '08821321', 'Mangga', 'image_750x_63bc1e0a6531d.jpg', '1', 1, 1574219676, 'Male', NULL),
 (9, 'admin@gmail.com', '$2y$10$4RLCItJ5EOr05NC3rPskjej0q3HmFdPrBxcUqFjscDM3TD3y14XyW', 'Admin', '082192132912', 'Jl Karang Anyar 1 GG Arrozak 2', 'logo_rinaya_crop.JPG', '1', 1, 1574219676, 'Male', NULL),
 (10, 'suher@gmail.com', '$2y$10$6.EsimzGRu63HbweFlEmveAs9WlDU8/ovCpphh/u0F.upgOg5F1Mi', 'Suher', '082183291920', ' Jl Mentaos Raya', '', '2', 1, 0, 'Male', 7),
-(11, 'eka@gmail.com', '$2y$10$B.ofNRBB5qBcqreibXwRn.ICmYQZLBqM8PLE82xmPbYu3iuDiGcLa', 'Eka', '08535003142152', 'Bjb tungkaran ', '', '2', 1, 0, 'Male', 4),
+(11, 'eka@gmail.com', '$2y$10$B.ofNRBB5qBcqreibXwRn.ICmYQZLBqM8PLE82xmPbYu3iuDiGcLa', 'Eka', '08535003142152', 'Bjb tungkaran ', 'WhatsApp-Image-2024-06-29-at-14_05_02_daa16cd4-1536x1536.jpg', '2', 1, 0, 'Female', 4),
 (12, 'dony@gmail.com', '$2y$10$uoRmJwL8S9M0VTvMSh69E.TBKyHXfS7cVjhBNd6ga7.PszXb2Opj6', 'Muhammad Dony Rifani', '083142141231', 'Jl Murung Raya ', '', '2', 1, 0, 'Male', 5),
-(13, 'rahmat@gmail.com', '$2y$10$.jBrJkCGFpQk6e4GlVW1ke37Mt4/omD9cJRgMgDBLsMzqAnSmRB06', 'Muhammad Rahmatullah', '0853547183', ' asad', '', '2', 1, 0, 'Male', 6);
+(13, 'rahmat@gmail.com', '$2y$10$.jBrJkCGFpQk6e4GlVW1ke37Mt4/omD9cJRgMgDBLsMzqAnSmRB06', 'Muhammad Rahmatullah', '0853547183', ' asad', '', '2', 1, 0, 'Male', 6),
+(17, 'udin@gmail.com', '$2y$10$fVPvM2y.tilKm1x1Rj6sluJD5j3n2ZNDZlFSlehjRJ.L/BGgF4pkK', 'Udin', '0882121921', 'Jl Mangga', '217751363_1138958726627719_307863043100303035_n.jpg', '2', 1, 1728961817, 'Male', 9),
+(18, 'Teknisi@gmail.com', '$2y$10$8dslxFtq1AR/5G64Alx9eOfeAU2.GQHIaEXVG9YGs3FtkI8iOTRJ6', 'Teknisi', '0882121921', 'Jl Mangga', '217751363_1138958726627719_307863043100303035_n.jpg', '3', 1, 1728961817, 'Male', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_token`
+-- Struktur dari tabel `user_token`
 --
 
 CREATE TABLE `user_token` (
@@ -318,7 +322,7 @@ CREATE TABLE `user_token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_token`
+-- Dumping data untuk tabel `user_token`
 --
 
 INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
@@ -340,38 +344,38 @@ INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
 --
 
 --
--- Indexes for table `company`
+-- Indeks untuk tabel `company`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `customer`
+-- Indeks untuk tabel `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`customer_id`);
 
 --
--- Indexes for table `expenditure`
+-- Indeks untuk tabel `expenditure`
 --
 ALTER TABLE `expenditure`
   ADD PRIMARY KEY (`expenditure_id`);
 
 --
--- Indexes for table `income`
+-- Indeks untuk tabel `income`
 --
 ALTER TABLE `income`
   ADD PRIMARY KEY (`income_id`);
 
 --
--- Indexes for table `invoice`
+-- Indeks untuk tabel `invoice`
 --
 ALTER TABLE `invoice`
   ADD PRIMARY KEY (`invoice_id`),
   ADD UNIQUE KEY `invoice` (`invoice`);
 
 --
--- Indexes for table `invoice_detail`
+-- Indeks untuk tabel `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
   ADD PRIMARY KEY (`detail_id`),
@@ -380,26 +384,26 @@ ALTER TABLE `invoice_detail`
   ADD KEY `item_id` (`item_id`);
 
 --
--- Indexes for table `package_category`
+-- Indeks untuk tabel `package_category`
 --
 ALTER TABLE `package_category`
   ADD PRIMARY KEY (`p_category_id`);
 
 --
--- Indexes for table `package_item`
+-- Indeks untuk tabel `package_item`
 --
 ALTER TABLE `package_item`
   ADD PRIMARY KEY (`p_item_id`),
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `pengaduan`
+-- Indeks untuk tabel `pengaduan`
 --
 ALTER TABLE `pengaduan`
   ADD PRIMARY KEY (`pengaduan_id`);
 
 --
--- Indexes for table `services`
+-- Indeks untuk tabel `services`
 --
 ALTER TABLE `services`
   ADD PRIMARY KEY (`services_id`),
@@ -407,106 +411,106 @@ ALTER TABLE `services`
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_token`
+-- Indeks untuk tabel `user_token`
 --
 ALTER TABLE `user_token`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `customer`
+-- AUTO_INCREMENT untuk tabel `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `expenditure`
+-- AUTO_INCREMENT untuk tabel `expenditure`
 --
 ALTER TABLE `expenditure`
   MODIFY `expenditure_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `income`
+-- AUTO_INCREMENT untuk tabel `income`
 --
 ALTER TABLE `income`
   MODIFY `income_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `invoice`
+-- AUTO_INCREMENT untuk tabel `invoice`
 --
 ALTER TABLE `invoice`
   MODIFY `invoice_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `invoice_detail`
+-- AUTO_INCREMENT untuk tabel `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
   MODIFY `detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `package_category`
+-- AUTO_INCREMENT untuk tabel `package_category`
 --
 ALTER TABLE `package_category`
   MODIFY `p_category_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `package_item`
+-- AUTO_INCREMENT untuk tabel `package_item`
 --
 ALTER TABLE `package_item`
   MODIFY `p_item_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `pengaduan`
+-- AUTO_INCREMENT untuk tabel `pengaduan`
 --
 ALTER TABLE `pengaduan`
   MODIFY `pengaduan_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `services`
+-- AUTO_INCREMENT untuk tabel `services`
 --
 ALTER TABLE `services`
   MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `user_token`
+-- AUTO_INCREMENT untuk tabel `user_token`
 --
 ALTER TABLE `user_token`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `invoice_detail`
+-- Ketidakleluasaan untuk tabel `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
   ADD CONSTRAINT `invoice_detail_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `package_category` (`p_category_id`),
   ADD CONSTRAINT `invoice_detail_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `package_item` (`p_item_id`);
 
 --
--- Constraints for table `package_item`
+-- Ketidakleluasaan untuk tabel `package_item`
 --
 ALTER TABLE `package_item`
   ADD CONSTRAINT `package_item_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `package_category` (`p_category_id`);
 
 --
--- Constraints for table `services`
+-- Ketidakleluasaan untuk tabel `services`
 --
 ALTER TABLE `services`
   ADD CONSTRAINT `services_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `package_item` (`p_item_id`),
