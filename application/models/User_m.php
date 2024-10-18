@@ -14,6 +14,14 @@ class User_m extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+    public function get_all()
+    {
+        $this->db->where('role_id', '1');
+        $this->db->or_where('role_id', '3');
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get('user')->result();
+    }
     public  function edit($post)
     {
         $params['is_active'] = $post['is_active'];

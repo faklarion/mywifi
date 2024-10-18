@@ -75,7 +75,7 @@
                                         } 
                                     } 
                                 ?>
-                                 <?php if($this->session->userdata('role_id') == 1) { 
+                                 <?php if($this->session->userdata('role_id') == 1 || $this->session->userdata('role_id') == 3) { 
                                         if($data->status == 1) {    
                                 ?>
                                     <a href="" data-toggle="modal" data-target="#statusModal<?= $data->pengaduan_id ?>" title="Selesaikan Pengaduan"><i class="fa fa-check" style="font-size:25px; color:green"></i></a>

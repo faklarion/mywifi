@@ -47,6 +47,11 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
+            <li class="nav-item <?= $title == 'Data User' | $title == 'Add Data User' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('data_user') ?>">
+                    <i class="fas fa-user fa-tachometer-alt"></i>
+                    <span>Data User</span></a>
+            </li>
             <li class="nav-item <?= $title == 'Customer' | $title == 'Add Customer' ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= site_url('customer') ?>">
                     <i class="fas fa-users fa-tachometer-alt"></i>
@@ -135,6 +140,11 @@
                 <a class="nav-link" href="<?= site_url('customer') ?>">
                     <i class="fas fa-users fa-tachometer-alt"></i>
                     <span>Data Customer</span></a>
+                </li>
+                <li class="nav-item <?= $title == 'Pengaduan Pelanggan'  ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= site_url('pengaduan') ?>">
+                    <i class="fa fa-comment"></i>
+                    <span>Pengaduan Pelanggan</span></a>
                 </li>
             <?php } ?>
 
