@@ -64,6 +64,7 @@
                                 ?>
                             </td>
                             <td style="text-align: center">
+                                <!-- <a href="<?= base_url('data_user/edit/'.$data->id.'')?>" title="Hapus"><i class="fa fa-edit" style="font-size:25px; color:orange"></i></a> -->
                                 <a href="" data-toggle="modal" data-target="#DeleteModal<?= $data->id ?>" title="Hapus"><i class="fa fa-trash" style="font-size:25px; color:red"></i></a>
                             </td>
                         </tr>

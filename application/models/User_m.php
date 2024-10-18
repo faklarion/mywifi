@@ -15,6 +15,17 @@ class User_m extends CI_Model
         return $query;
     }
 
+    public function get_id($id = null)
+    {
+        $this->db->select('*');
+        $this->db->from('user');
+        if ($id != null) {
+            $this->db->where('id', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function get_all()
     {
         $this->db->where('role_id', '1');

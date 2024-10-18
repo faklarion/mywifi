@@ -99,26 +99,26 @@ class Data_user extends CI_Controller
 
     
 
-    public function edit($pengaduan_id)
+    public function edit($id)
     {
         is_logged_in();
-        $this->form_validation->set_rules('name', 'Name', 'required|trim');
-        $this->form_validation->set_rules('no_ktp', 'No KTP', 'required|trim|callback_no_ktp_check');
-        $this->form_validation->set_rules('no_wa', 'No Whatsapp', 'required|trim|callback_no_wa_check');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|callback_email_check');
-        $this->form_validation->set_message('required', '%s Tidak boleh kosong, Silahkan isi');
-        $this->form_validation->set_message('is_unique', '%s Sudah dipakai, Silahkan ganti');
+        $this->form_validation->set_rules('name', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('phone', 'Nomer HP', 'required|trim');
+        $this->form_validation->set_rules('address', 'Alamat', 'required|trim');
+        
         if ($this->form_validation->run() == false) {
-            $query  = $this->pengaduan_m->getpengaduan($pengaduan_id);
+            $query  = $this->user_m->get_id($id);
             if ($query->num_rows() > 0) {
-                $data['pengaduan'] = $query->row();
-                $data['title'] = 'Edit pengaduan';
+                $data['data_user'] = $query->row();
+                $data['title'] = 'Edit Data User';
                 $data['company'] = $this->db->get('company')->row_array();
                 $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-                $this->template->load('backend', 'backend/pengaduan/edit_pengaduan', $data);
+                $this->template->load('backend', 'backend/data_user/edit_user', $data);
             } else {
                 echo "<script> alert ('Data tidak ditemukan');";
-                echo "window.location='" . site_url('pengaduan') . "'; </script>";
+                echo "window.location='" . site_url('data_user') . "'; </script>";
             }
         } else {
             $post = $this->input->post(null, TRUE);
@@ -126,7 +126,7 @@ class Data_user extends CI_Controller
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('success', 'Data Pelanggan berhasil diperbaharui');
             }
-            echo "<script>window.location='" . site_url('pengaduan') . "'; </script>";
+            echo "<script>window.location='" . site_url('data_user') . "'; </script>";
         }
     }
 
