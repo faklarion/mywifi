@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 15 Okt 2024 pada 04.11
+-- Waktu pembuatan: 20 Jan 2025 pada 14.14
 -- Versi server: 8.0.30
 -- Versi PHP: 7.4.33
 
@@ -67,19 +67,27 @@ CREATE TABLE `customer` (
   `no_wa` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `no_ktp` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `created` int NOT NULL,
-  `status_pasang` int NOT NULL DEFAULT '0'
+  `status_pasang` int NOT NULL DEFAULT '0',
+  `status_bayar` int NOT NULL,
+  `foto_pasang` text COLLATE utf8mb4_general_ci,
+  `lokasi_pasang` text COLLATE utf8mb4_general_ci,
+  `bukti_bayar` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `customer`
 --
 
-INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`, `no_wa`, `no_ktp`, `created`, `status_pasang`) VALUES
-(4, 'Eka Erlina Andayani', '230806132134', 'eka@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', 1691320933, 1),
-(5, 'Muhammad Dony Rifani', '230806132222', 'dony@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', 1691320965, 1),
-(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', 1691802852, 1),
-(7, 'Suher', '240928024259', 'suher@gmail.com', 'Bjb tungkaran ', '082183291920', '637129219238', 1727491407, 1),
-(9, 'Udin', '241015031017', 'udin@gmail.com', 'Jl Mangga', '0882121921', '6371020504029321', 1728961817, 0);
+INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`, `no_wa`, `no_ktp`, `created`, `status_pasang`, `status_bayar`, `foto_pasang`, `lokasi_pasang`, `bukti_bayar`) VALUES
+(4, 'Eka Erlina Andayani', '230806132134', 'eka@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', 1691320933, 1, 1, NULL, NULL, NULL),
+(5, 'Muhammad Dony Rifani', '230806132222', 'dony@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', 1691320965, 1, 1, NULL, NULL, NULL),
+(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', 1691802852, 1, 1, NULL, NULL, NULL),
+(7, 'Suher', '240928024259', 'suher@gmail.com', 'Bjb tungkaran ', '082183291920', '637129219238', 1727491407, 1, 1, NULL, NULL, NULL),
+(9, 'Udin', '241015031017', 'udin@gmail.com', 'Jl Mangga', '0882121921', '6371020504029321', 1728961817, 0, 1, NULL, NULL, NULL),
+(10, 'opal', '241017110830', 'opal@gmail.com', 'JL Keruwing', '0882121921', '6371020504029322', 1729163310, 0, 1, NULL, NULL, NULL),
+(11, 'riza', '241017111101', 'riza@gmail.com', 'Jl Bumi Mas', '0882121922', '6371020504029322', 1729163461, 0, 1, NULL, NULL, NULL),
+(12, 'ade', '241017111406', 'ade@gmail.com', 'Pal 8', '08821219222', '6371020504029328', 1729163646, 0, 1, NULL, NULL, NULL),
+(13, 'Ical', '250120061526', 'ical@gmail.com', 'JL Mangga', '0882121921', '6371020504029327', 1737353726, 1, 1, '678df9d723fee.jpg', 'Jl Mangga', '678df2890d4f6.jpg');
 
 -- --------------------------------------------------------
 
@@ -231,16 +239,19 @@ CREATE TABLE `pengaduan` (
   `user_id` int NOT NULL,
   `keluhan` text NOT NULL,
   `tanggal_pengaduan` datetime NOT NULL,
-  `status` int NOT NULL
+  `status` int NOT NULL,
+  `foto_perbaikan` text,
+  `lokasi_perbaikan` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `pengaduan`
 --
 
-INSERT INTO `pengaduan` (`pengaduan_id`, `user_id`, `keluhan`, `tanggal_pengaduan`, `status`) VALUES
-(3, 10, 'Tidak bisa konek', '2024-09-28 13:24:59', 2),
-(4, 11, 'Pagat kabel', '2024-09-28 13:51:02', 1);
+INSERT INTO `pengaduan` (`pengaduan_id`, `user_id`, `keluhan`, `tanggal_pengaduan`, `status`, `foto_perbaikan`, `lokasi_perbaikan`) VALUES
+(3, 10, 'Tidak bisa konek', '2024-09-28 13:24:59', 2, NULL, NULL),
+(4, 11, 'Pagat kabel', '2024-09-28 13:51:02', 1, NULL, NULL),
+(5, 20, 'Tidak konek', '2024-10-18 09:39:53', 2, 'perbaikan_1737358763.jpg', 'Bumi Mas');
 
 -- --------------------------------------------------------
 
@@ -299,14 +310,18 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `image`, `role_id`, `is_active`, `date_created`, `gender`, `customer_id`) VALUES
 (1, 'ginginabdulgoni@gmail.com', '$2y$10$9a7b78YWmpUO1yS3Q2CeMOuWvemjp4Q13q52ykg5alI/f9NrICqB.', 'Gingin Abdul Goni', '082337481227', 'Kp. Ciparay', 'default1.jpg', '1', 1, 1565599788, 'Male', NULL),
 (7, '11duabelasproject@gmail.com', '$2y$10$9a7b78YWmpUO1yS3Q2CeMOuWvemjp4Q13q52ykg5alI/f9NrICqB.', 'Rosita Wulandari', '085283935826', 'Perum Baru Paros, Tarogong Kaler - Garut', 'default.jpg', '1', 1, 1574219676, 'Male', NULL),
-(8, 'faisal@gmail.com', '$2y$10$QaXllbTFMIatgTTDXnaycONUkbvy6PKue4N/6idh9e0Nr8dVLSIRW', 'Faisal', '08821321', 'Mangga', 'image_750x_63bc1e0a6531d.jpg', '1', 1, 1574219676, 'Male', NULL),
 (9, 'admin@gmail.com', '$2y$10$4RLCItJ5EOr05NC3rPskjej0q3HmFdPrBxcUqFjscDM3TD3y14XyW', 'Admin', '082192132912', 'Jl Karang Anyar 1 GG Arrozak 2', 'logo_rinaya_crop.JPG', '1', 1, 1574219676, 'Male', NULL),
 (10, 'suher@gmail.com', '$2y$10$6.EsimzGRu63HbweFlEmveAs9WlDU8/ovCpphh/u0F.upgOg5F1Mi', 'Suher', '082183291920', ' Jl Mentaos Raya', '', '2', 1, 0, 'Male', 7),
 (11, 'eka@gmail.com', '$2y$10$B.ofNRBB5qBcqreibXwRn.ICmYQZLBqM8PLE82xmPbYu3iuDiGcLa', 'Eka', '08535003142152', 'Bjb tungkaran ', 'WhatsApp-Image-2024-06-29-at-14_05_02_daa16cd4-1536x1536.jpg', '2', 1, 0, 'Female', 4),
 (12, 'dony@gmail.com', '$2y$10$uoRmJwL8S9M0VTvMSh69E.TBKyHXfS7cVjhBNd6ga7.PszXb2Opj6', 'Muhammad Dony Rifani', '083142141231', 'Jl Murung Raya ', '', '2', 1, 0, 'Male', 5),
 (13, 'rahmat@gmail.com', '$2y$10$.jBrJkCGFpQk6e4GlVW1ke37Mt4/omD9cJRgMgDBLsMzqAnSmRB06', 'Muhammad Rahmatullah', '0853547183', ' asad', '', '2', 1, 0, 'Male', 6),
 (17, 'udin@gmail.com', '$2y$10$fVPvM2y.tilKm1x1Rj6sluJD5j3n2ZNDZlFSlehjRJ.L/BGgF4pkK', 'Udin', '0882121921', 'Jl Mangga', '217751363_1138958726627719_307863043100303035_n.jpg', '2', 1, 1728961817, 'Male', 9),
-(18, 'Teknisi@gmail.com', '$2y$10$8dslxFtq1AR/5G64Alx9eOfeAU2.GQHIaEXVG9YGs3FtkI8iOTRJ6', 'Teknisi', '0882121921', 'Jl Mangga', '217751363_1138958726627719_307863043100303035_n.jpg', '3', 1, 1728961817, 'Male', NULL);
+(18, 'Teknisi@gmail.com', '$2y$10$8dslxFtq1AR/5G64Alx9eOfeAU2.GQHIaEXVG9YGs3FtkI8iOTRJ6', 'Teknisi', '0882121921', 'Jl Mangga', '217751363_1138958726627719_307863043100303035_n.jpg', '3', 1, 1728961817, 'Male', NULL),
+(19, 'opal@gmail.com', '$2y$10$d0mfdVD4qCX3PlS4Icdjfungva9aj3LjCG3zkAqiSZsMVbDhfXWiK', 'opal', '0882121921', 'JL Keruwing', '6710f02e39666.jpg', '2', 1, 1729163310, 'Male', 10),
+(20, 'riza@gmail.com', '$2y$10$HIeHMGoo4qmbsIa.8MzgeuhyBGJc8WleaGgFQDI3K/R4ATRJS19z6', 'riza', '0882121922', 'Jl Bumi Mas', '6710f0c550991.png', '2', 1, 1729163461, 'Male', 11),
+(21, 'ade@gmail.com', '$2y$10$Xs1.p65lRlLeVgeJ49vMtu.rMKpvsZsLNWN1LyxIJX.qpHlxd0p/G', 'ade', '08821219222', 'Pal 8', '6710f17e018ac.jpg', '2', 1, 1729163646, 'Male', 12),
+(22, 'faisal@gmail.com', '$2y$04$hpf5TCVLIkSZ4CHll3vEbOHySIn/hcEfpmn14JDqC0jAVUqvGuy/e', 'Faisal', '082191949376', 'JL. MANGGA III KOMP AR RAHIM NO. 44', '17e2d03fdcb76f8e3df9a08577bb9239.jpg', '1', 1, 1729219246, 'Male', NULL),
+(23, 'ical@gmail.com', '$2y$10$pkwrnTFWyO6ENI1lUcm8teucZNfL9FxEOEyAyF7.mYjma/5Ezc5eW', 'Ical', '0882121921', 'JL Mangga', '678de9fe19eac.jpg', '2', 1, 1737353726, 'Male', 13);
 
 -- --------------------------------------------------------
 
@@ -430,7 +445,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT untuk tabel `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `expenditure`
@@ -472,7 +487,7 @@ ALTER TABLE `package_item`
 -- AUTO_INCREMENT untuk tabel `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `pengaduan_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pengaduan_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `services`
@@ -484,7 +499,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_token`

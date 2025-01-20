@@ -318,4 +318,11 @@ public function print_kartu($id)
     $this->load->view('backend/customer/kartu', $data);
 }
 
+public function grafik()
+{
+    $data['title'] = 'Grafik Informasi Installasi';
+    
+    $this->load->view('backend/customer/grafik', $data);
+}
+
 }

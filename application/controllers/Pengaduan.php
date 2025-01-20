@@ -186,6 +186,13 @@ class pengaduan extends CI_Controller
         
         $this->load->view('backend/pengaduan/kartu', $data);
     }
+    
+    public function grafik()
+    {
+        $data['title'] = 'Grafik Pengaduan';
+        
+        $this->load->view('backend/pengaduan/grafik', $data);
+    }
 
 
     public function delete()
