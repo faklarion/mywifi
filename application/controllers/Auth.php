@@ -241,9 +241,7 @@ class auth extends CI_Controller
     }
 
     public function register_action()
-{
-    // Aturan validasi formulir
-    
+    {     
         // Mengambil data dari form
         $name = $this->input->post('name');
         $email = $this->input->post('email');
@@ -252,15 +250,29 @@ class auth extends CI_Controller
         $address = $this->input->post('address');
         $gender = $this->input->post('gender');
         $no_ktp = $this->input->post('no_ktp');
-
+    
+        // Validasi NIK (no_ktp) dan email
+        $existsNIK = $this->db->get_where('customer', ['no_ktp' => $no_ktp])->row_array();
+        $existsEmail = $this->db->get_where('user', ['email' => $email])->row_array();
+    
+        if ($existsNIK) {
+            $this->session->set_flashdata('error', 'NIK sudah terdaftar. Gunakan NIK lain.');
+            redirect(base_url('auth/register'));
+        }
+    
+        if ($existsEmail) {
+            $this->session->set_flashdata('error', 'Email sudah terdaftar. Gunakan email lain.');
+            redirect(base_url('auth/register'));
+        }
+    
         // Konfigurasi upload gambar
         $config['upload_path'] = './assets/images/profile/';
         $config['allowed_types'] = 'jpg|jpeg|png';
         $config['max_size'] = 2048; // 2MB
         $config['file_name'] = uniqid(); // Nama file unik
-
+    
         $this->load->library('upload', $config);
-
+    
         if (!$this->upload->do_upload('image')) {
             // Jika gagal upload gambar, kembalikan error
             $error = array('error' => $this->upload->display_errors());
@@ -269,9 +281,8 @@ class auth extends CI_Controller
             // Jika berhasil upload gambar
             $imageData = $this->upload->data();
             $imageName = $imageData['file_name'];
-
+    
             // Simpan data ke database
-
             $data_cust = [
                 'name' => $name,
                 'no_services' => Date('ymdHis'),
@@ -281,10 +292,10 @@ class auth extends CI_Controller
                 'no_wa' => $phone,
                 'created' => time(),
             ];
-
+    
             $this->db->insert('customer', $data_cust);
             $customer_id = $this->db->insert_id();
-
+    
             $data = [
                 'name' => $name,
                 'email' => $email,
@@ -298,14 +309,15 @@ class auth extends CI_Controller
                 'is_active' => '1',
                 'customer_id' => $customer_id,
             ];
-
+    
             $this->db->insert('user', $data);
-
+    
             // Redirect ke halaman sukses atau login
-            $this->session->set_flashdata('pesan','Registrasi selesai ! silakan coba untuk login !');
+            $this->session->set_flashdata('pesan', 'Registrasi selesai! Silakan coba untuk login!');
             redirect(base_url('auth'));
         }
-}
+    }
+    
 
 // Callback untuk validasi file gambar
 public function file_check($str)

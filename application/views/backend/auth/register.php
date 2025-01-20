@@ -72,7 +72,12 @@
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Daftar
                                         </button>
-                                    <?php echo form_close() ?>                                
+                                        
+                                    <?php echo form_close() ?>     
+                                    <br>
+                                    <a href="<?= base_url() ?>"><button class="btn btn-primary btn-danger btn-block">
+                                            Kembali ke Halaman Utama
+                                    </button></a>                           
                                 </div>
                             </div>
                         </div>

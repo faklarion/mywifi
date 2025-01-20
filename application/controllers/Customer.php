@@ -227,9 +227,48 @@ class customer extends CI_Controller
     public function update_pemasangan()
     {
         $customer_id = $this->input->post('customer_id');
+        $no_services = $this->input->post('no_services');
+        $lokasi_pasang = $this->input->post('lokasi_pasang');
+    
+        // Konfigurasi upload gambar
+        $config['upload_path'] = './assets/images/pemasangan/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        $config['max_size'] = 2048; // 2MB
+        $config['file_name'] = uniqid(); // Nama file unik
+    
+        $this->load->library('upload', $config);
+    
+        if (!$this->upload->do_upload('foto_pasang')) {
+            // Jika gagal upload gambar, kembalikan error
+            $this->session->set_flashdata('error', $this->upload->display_errors());
+            redirect('customer');
+        } else {
+            // Jika berhasil upload gambar
+            $imageData = $this->upload->data();
+            $foto_pasang = $imageData['file_name'];
+    
+            // Update data pemasangan
+            $data = array(
+                'status_pasang' => 1,
+                'foto_pasang' => $foto_pasang,
+                'lokasi_pasang' => $lokasi_pasang,
+            );
+    
+            $this->db->where('customer_id', $customer_id);
+            $this->db->update('customer', $data);
+    
+            $this->session->set_flashdata('success', 'Data berhasil diperbarui');
+            redirect('customer');
+        }
+    }
+    
+
+    public function verif_pembayaran()
+    {
+        $customer_id = $this->input->post('customer_id');
         
         $data = array(
-            'status_pasang' => 1,
+            'status_bayar' => 1,
         );
 
         $this->db->where('customer_id', $customer_id);
@@ -238,6 +277,39 @@ class customer extends CI_Controller
         $this->session->set_flashdata('success', 'Data berhasil diperbarui');
                 
         redirect('customer');
-        
     }
+
+    public function upload_bayar()
+{
+    $customer_id = $this->input->post('customer_id');
+    $config['upload_path'] = './assets/images/bukti_bayar/'; // Direktori penyimpanan
+    $config['allowed_types'] = 'jpg|jpeg|png'; // Jenis file yang diperbolehkan
+    //$config['max_size'] = 2048; // Ukuran maksimum file (2MB)
+    $config['file_name'] = uniqid(); // Nama file unik
+
+    $this->load->library('upload', $config);
+
+    if (!$this->upload->do_upload('bukti_bayar')) {
+        // Jika gagal upload, kembalikan pesan error
+        $error = $this->upload->display_errors();
+        $this->session->set_flashdata('error', 'Gagal mengunggah bukti bayar: ' . $error);
+        redirect('customer');
+    } else {
+        // Jika berhasil upload, ambil nama file
+        $imageData = $this->upload->data();
+        $buktiBayar = $imageData['file_name'];
+
+        // Update data di database
+        $data = array(
+            'bukti_bayar' => $buktiBayar, // Simpan nama file bukti bayar
+        );
+
+        $this->db->where('customer_id', $customer_id);
+        $this->db->update('customer', $data);
+
+        $this->session->set_flashdata('success', 'Data berhasil diperbarui dan bukti bayar berhasil diunggah');
+        redirect('customer');
+    }
+}
+
 }

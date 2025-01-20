@@ -63,7 +63,9 @@
                                 <?php if($data->status == 1) {
                                     echo '<button class="btn btn-sm btn-warning">Pengaduan di Proses</button>';
                                 } elseif($data->status == 2) {
-                                    echo '<button class="btn btn-sm btn-success">Pengaduan selesai</button>';;
+                                    echo '<button class="btn btn-sm btn-success">Pengaduan selesai</button>';
+                                    echo '<br>';
+                                    echo '<a href="" data-toggle="modal" data-target="#detailModal'.$data->pengaduan_id.'" title="Lihat Detail Pengaduan"><button class="btn btn-sm btn-info"> Lihat Detail Perbaikan</button></a>';
                                 } ?>
                             </td>
                             <td style="text-align: center">
@@ -137,6 +139,15 @@ foreach ($pengaduan as $r => $data) { ?>
                 <div class="modal-body">
                     
                     <?php echo form_open_multipart('pengaduan/ubah_status') ?>
+                    <div class="form-group">
+                        <label for="foto_perbaikan">Upload Foto Perbaikan</label>
+                        <input type="file" name="foto_perbaikan" id="foto_perbaikan" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lokasi_perbaikan">Lokasi Perbaikan</label>
+                        <textarea name="lokasi_perbaikan" id="lokasi_perbaikan" class="form-control" rows="3" required></textarea>
+                    </div>
                     <input type="hidden" name="pengaduan_id" value="<?= $data->pengaduan_id ?>">
                         Apakah yakin akan mengubah Pengaduan no <?= $data->pengaduan_id ?> menjadi selesai ?
                     <div class="modal-footer">
@@ -144,6 +155,58 @@ foreach ($pengaduan as $r => $data) { ?>
                         <button type="submit" class="btn btn-success">OK</button>
                     </div>
                     <?php echo form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<!-- Modal Detail -->
+<?php
+foreach ($pengaduan as $r => $data) { ?>
+    <div class="modal fade" id="detailModal<?= $data->pengaduan_id ?>" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Lihat Detail Pengaduan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td>Nomer Aduan</td>
+                            <td>:</td>
+                            <td><?= $data->pengaduan_id?></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Pelanggan</td>
+                            <td>:</td>
+                            <td><?= $data->name ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nomer Pelanggan</td>
+                            <td>:</td>
+                            <td><?= $data->no_services?></td>
+                        </tr>
+                        <tr>
+                            <td>Keluhan Pelanggan</td>
+                            <td>:</td>
+                            <td><?= $data->keluhan?></td>
+                        </tr>
+                        <tr>
+                            <td>Foto Perbaikan</td>
+                            <td>:</td>
+                            <td><img src="<?= base_url('assets/images/perbaikan/'.$data->foto_perbaikan.'') ?>" width="200px" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td>Lokasi Perbaikan</td>
+                            <td>:</td>
+                            <td><?= $data->lokasi_perbaikan?></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

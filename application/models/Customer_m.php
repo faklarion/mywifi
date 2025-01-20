@@ -16,6 +16,9 @@ class Customer_m extends CI_Model
         if($this->session->userdata('role_id') == 2) {
             $this->db->where('customer_id', $this->session->userdata('customer_id'));
         }
+        if($this->session->userdata('role_id') == 3){
+            $this->db->where('status_bayar', '1');
+        }
         $this->db->order_by('customer_id', 'DESC');
         $query = $this->db->get();
         return $query;

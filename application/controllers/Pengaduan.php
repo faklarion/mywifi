@@ -195,17 +195,47 @@ class pengaduan extends CI_Controller
 
     public function ubah_status()
     {
-                $pengaduan_id = $this->input->post('pengaduan_id');
+        $pengaduan_id = $this->input->post('pengaduan_id');
+        $lokasi_perbaikan = $this->input->post('lokasi_perbaikan');
 
-                $data = array(
-                    'status' => 2,
-                );
-                
-                $this->db->where('pengaduan_id', $pengaduan_id);
-                $this->db->update('pengaduan', $data);
-                if ($this->db->affected_rows() > 0) {
-                    $this->session->set_flashdata('success', 'Pengaduan berhasil diubah');
-                }
-                redirect('pengaduan');   
+        // Konfigurasi upload gambar
+        $config['upload_path'] = './assets/images/perbaikan/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        //$config['max_size'] = 2048; // Maksimum 2MB
+        $config['file_name'] = 'perbaikan_' . time(); // Nama file unik
+
+        $this->load->library('upload', $config);
+
+        // Cek apakah ada file yang diupload
+        if (!$this->upload->do_upload('foto_perbaikan')) {
+            // Jika gagal upload, set pesan error dan redirect
+            $this->session->set_flashdata('error', $this->upload->display_errors());
+            redirect('pengaduan');
+        } else {
+            // Jika berhasil upload, ambil nama file
+            $uploadData = $this->upload->data();
+            $foto_perbaikan = $uploadData['file_name'];
+
+            // Data yang akan diperbarui
+            $data = array(
+                'status' => 2,
+                'foto_perbaikan' => $foto_perbaikan,
+                'lokasi_perbaikan' => $lokasi_perbaikan,
+            );
+
+            // Update data di database
+            $this->db->where('pengaduan_id', $pengaduan_id);
+            $this->db->update('pengaduan', $data);
+
+            // Cek apakah ada perubahan pada database
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Pengaduan berhasil diubah');
+            } else {
+                $this->session->set_flashdata('error', 'Tidak ada perubahan data.');
+            }
+
+            redirect('pengaduan');
+        }
     }
+
 }

@@ -29,8 +29,9 @@
                         <th>Email</th>
                         <th>No KTP</th>
                         <th>No Telp.</th>
-                        <th style="width: 400px">Tagihan / Bulan</th>
+                        <th>Tagihan / Bulan</th>
                         <th>Alamat</th>
+                        <th>Status Pembayaran Installasi</th>
                         <th>Status Pemasangan</th>
                         <th style="text-align: center">Aksi</th>
                     </tr>
@@ -45,6 +46,7 @@
                         <th>No Telp.</th>
                         <th>Tagihan / Bulan</th>
                         <th>Alamat</th>
+                        <th>Status Pembayaran Installasi</th>
                         <th>Status Pemasangan</th>
                         <th style="text-align: center;width: 100px">Aksi</th>
                     </tr>
@@ -78,10 +80,38 @@
                             <td><?= $data->address ?></td>
                             <td>
                                 <?php 
+                                    if($data->status_bayar == 0) {
+                                        if($this->session->userdata('role_id') == 2) {
+                                            if(($data->bukti_bayar == NULL) || ($data->bukti_bayar == '')) {
+                                                echo '<button class="btn btn-sm btn-danger">Belum Melakukan Pembayaran Installasi !</button>';
+                                                echo '<a href="" data-toggle="modal" data-target="#bayarModal'.$data->customer_id.'"><button class="btn btn-sm btn-info">Bayar Sekarang</button></a>';    
+                                            } elseif($data->bukti_bayar != NULL) {
+                                                echo '<button class="btn btn-sm btn-success">Upload Pembayaran Selesai, Tunggu Verifikasi Admin</button>';
+                                                echo '<a target="_blank" href='.base_url('assets/images/bukti_bayar/'.$data->bukti_bayar.'').'>Lihat Bukti Bayar</a>';
+                                                
+                                            }       
+                                        } elseif($this->session->userdata('role_id') == 1) { 
+                                            if(($data->bukti_bayar == NULL) || ($data->bukti_bayar == '')) {
+                                                echo '<button class="btn btn-sm btn-danger">Belum Melakukan Pembayaran Installasi !</button>';
+                                            } elseif($data->bukti_bayar != NULL) {
+                                                echo '<button class="btn btn-sm btn-success">Upload Pembayaran Selesai, Silakan Cek</button>';
+                                                echo '<a target="_blank" href='.base_url('assets/images/bukti_bayar/'.$data->bukti_bayar.'').'>Lihat Bukti Bayar</a>';
+                                                echo '<a href="" data-toggle="modal" data-target="#verifModal'.$data->customer_id.'"><button class="btn btn-sm btn-primary">Verifikasi Pembayaran</button></a>';    
+                                            }  
+                                        }   
+                                    } elseif($data->status_bayar == 1) {
+                                        echo '<button class="btn btn-sm btn-info">Sudah Melakukan Pembayaran Installasi</button>';
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
                                     if($data->status_pasang == 0) {
                                         echo '<button class="btn btn-sm btn-danger">Belum Dipasang !</button>';
                                     } elseif($data->status_pasang == 1) {
                                         echo '<button class="btn btn-sm btn-info">Sudah Dipasang</button>';
+                                        echo '<br>';
+                                        echo '<a href="" data-toggle="modal" data-target="#detailModal'.$data->customer_id.'"><button class="btn btn-sm btn-primary">Detail Pemasangan</button></a>';    
                                     }
                                 ?>
                             </td>
@@ -145,15 +175,127 @@ foreach ($customer as $r => $data) { ?>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?php echo form_open_multipart('customer/update_pemasangan') ?>
+                <?php echo form_open_multipart('customer/update_pemasangan'); ?>
                     <input type="hidden" name="customer_id" value="<?= $data->customer_id ?>" class="form-control">
                     <input type="hidden" name="no_services" value="<?= $data->no_services ?>" class="form-control">
-                        Sudah melakukan pemasangan No Layanan <?= $data->no_services ?> A/N <?= $data->name ?> ?
+
+                    <div class="form-group">
+                        <label for="foto_pasang">Upload Foto Pemasangan</label>
+                        <input type="file" name="foto_pasang" id="foto_pasang" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lokasi_pasang">Lokasi Pemasangan</label>
+                        <textarea name="lokasi_pasang" id="lokasi_pasang" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <hr>
+                    Sudah melakukan pemasangan No Layanan <?= $data->no_services ?> A/N <?= $data->name ?> ?
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Sudah</button>
+                    </div>
+                <?php echo form_close(); ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<!-- Modal Bayar -->
+<?php
+foreach ($customer as $r => $data) { ?>
+    <div class="modal fade" id="bayarModal<?= $data->customer_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bayar Installasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php echo form_open_multipart('customer/upload_bayar') ?>
+                    <input type="hidden" name="customer_id" value="<?= $data->customer_id ?>" class="form-control">
+                    <input type="file" name="bukti_bayar" id="bukti_bayar" required>
+                    <br>
+                        Cek Kembali Bukti Pembayaran Anda !
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Upload</button>
+                    </div>
+                    <?php echo form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<!-- Modal Verif -->
+<?php
+foreach ($customer as $r => $data) { ?>
+    <div class="modal fade" id="verifModal<?= $data->customer_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi Pembayaran Installas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php echo form_open_multipart('customer/verif_pembayaran') ?>
+                    <input type="hidden" name="customer_id" value="<?= $data->customer_id ?>" class="form-control">
+                    <input type="hidden" name="no_services" value="<?= $data->no_services ?>" class="form-control">
+                        Sudah verifikasi pembayaran installasi No Layanan <?= $data->no_services ?> A/N <?= $data->name ?> ?
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-success">Sudah</button>
                     </div>
                     <?php echo form_close() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+<!-- Modal Detail -->
+<?php
+foreach ($customer as $r => $data) { ?>
+    <div class="modal fade" id="detailModal<?= $data->customer_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Pemasangan Pelanggan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>Nama Pelanggan</td>
+                        <td>:</td>
+                        <td><?= $data->name?></td>
+                    </tr>
+                    <tr>
+                        <td>Nomer Pelanggan</td>
+                        <td>:</td>
+                        <td><?= $data->no_services?></td>
+                    </tr>
+                    <tr>
+                        <td>Foto Pemasangan</td>
+                        <td>:</td>
+                        <td><img src="<?= base_url('assets/images/pemasangan/'.$data->foto_pasang.'')?>" alt="" width="200px"></td>
+                    </tr>
+                    <tr>
+                        <td>Lokasi Pemasangan</td>
+                        <td>:</td>
+                        <td><?= $data->lokasi_pasang ?></td>
+                    </tr>
+                </table>
+
                 </div>
             </div>
         </div>
