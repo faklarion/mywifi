@@ -179,7 +179,13 @@ class pengaduan extends CI_Controller
         $this->load->view('pengaduan/pengaduan_doc',$data);
     }
 
-
+    public function print_kartu($id)
+    {
+        $data['title'] = 'Kartu Pengaduan Pelanggan';
+        $data['pengaduan'] = $this->pengaduan_m->get_by_id($id);
+        
+        $this->load->view('backend/pengaduan/kartu', $data);
+    }
 
 
     public function delete()

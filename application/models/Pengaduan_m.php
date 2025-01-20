@@ -31,6 +31,15 @@ class Pengaduan_m extends CI_Model
         return $this->db->get('pengaduan')->result();
     }
 
+    function get_by_id($id)
+    {
+        $this->db->select('*');
+        $this->db->join('user', 'user.id = pengaduan.user_id');
+        $this->db->join('customer', 'customer.customer_id = user.customer_id');
+        $this->db->where('pengaduan_id', $id);
+        return $this->db->get('pengaduan')->result();
+    }
+
     public function getNSpengaduan($no_services = null)
     {
         $this->db->select('*');

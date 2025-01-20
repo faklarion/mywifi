@@ -125,6 +125,9 @@
                                         <a href="" data-toggle="modal" data-target="#updateModal<?= $data->customer_id ?>" title="Update"><i class="fa fa-check" style="font-size:25px; color:green"></i></a>
                                     <?php } ?>
                                 <?php endif ?>    
+                                <?php if($this->session->userdata('role_id') != 3) : ?> 
+                                        <a href="<?= base_url('customer/print_kartu/'.$data->customer_id.'')?>" target="_blank"><i class="fa fa-print" style="font-size:25px; color:orange"></i></a>
+                                <?php endif ?>  
                             </td>
                         </tr>
                     <?php } ?>

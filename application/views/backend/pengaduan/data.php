@@ -85,6 +85,7 @@
                                         } 
                                     } 
                                 ?>
+                                <a href="<?= base_url('pengaduan/print_kartu/'.$data->pengaduan_id.'')?>" target="_blank"><i class="fa fa-print" style="font-size:25px; color:orange"></i></a>
                             </td>
                         </tr>
                     <?php } ?>

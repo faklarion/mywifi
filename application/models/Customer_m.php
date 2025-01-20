@@ -43,6 +43,16 @@ class Customer_m extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+    public function get_customer_by_id($id)
+    {
+        $this->db->select('*');
+        $this->db->from('customer');
+        $this->db->where('customer_id', $id);
+        
+        $query = $this->db->get();
+        return $query;
+    }
     public function getInvoiceCustomer($no_services = null)
     {
         $this->db->select('*');

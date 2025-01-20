@@ -199,8 +199,6 @@ class customer extends CI_Controller
     }
 
 
-
-
     public function delete()
     {
         $customer_id = $this->input->post('customer_id');
@@ -310,6 +308,14 @@ class customer extends CI_Controller
         $this->session->set_flashdata('success', 'Data berhasil diperbarui dan bukti bayar berhasil diunggah');
         redirect('customer');
     }
+}
+
+public function print_kartu($id)
+{
+    $data['title'] = 'Cetak Kartu';
+    $data['customers'] = $this->customer_m->get_customer_by_id($id)->result();
+    
+    $this->load->view('backend/customer/kartu', $data);
 }
 
 }
