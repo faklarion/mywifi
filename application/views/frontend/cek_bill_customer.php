@@ -57,6 +57,76 @@
 		</div>
 	</div>
 </div>
+<div class="container">
+		<div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr style="text-align: center">
+                        <th style="text-align: center; width:20px">No</th>
+                        <th>No Layanan</th>
+                        <th>Nama Pelanggan</th>
+                        <th>No. telp.</th>
+                        <th>Periode</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <!-- <th style="text-align: center">Aksi</th> -->
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr style="text-align: center">
+                        <th style="text-align: center">No</th>
+                        <th>No Layanan</th>
+                        <th>Nama Pelanggan</th>
+                        <th>No. telp.</th>
+                        <th>Periode</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <!-- <th style="text-align: center">Aksi</th> -->
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <?php $no = 1;
+                    foreach ($bill_customer as $r => $data) { ?>
+                        <tr>
+                            <td style="text-align: center"><?= $no++ ?>.</td>
+                            <td style="text-align: center"><?= $data->no_services ?></td>
+                            <td><?= $data->name ?></td>
+                            <td><?= $data->no_wa ?></td>
+                            <td><?= $data->month == '01' ? 'Januari' : '' ?>
+                                <?= $data->month == '02' ? 'Februari' : '' ?>
+                                <?= $data->month == '03' ? 'Maret' : '' ?>
+                                <?= $data->month == '04' ? 'April' : '' ?>
+                                <?= $data->month == '05' ? 'Mei' : '' ?>
+                                <?= $data->month == '06' ? 'Juni' : '' ?>
+                                <?= $data->month == '07' ? 'Juli' : '' ?>
+                                <?= $data->month == '08' ? 'Agustus' : '' ?>
+                                <?= $data->month == '09' ? 'September' : '' ?>
+                                <?= $data->month == '10' ? 'Oktober' : '' ?>
+                                <?= $data->month == '11' ? 'November' : '' ?>
+                                <?= $data->month == '12' ? 'Desember' : '' ?>
+                                <?= $data->year ?></td>
+                            <td style="font-weight: bold;text-align: center"> <?php $query = "SELECT *
+                                    FROM `invoice_detail`
+                                        WHERE `invoice_detail`.`invoice_id` =  $data->invoice";
+                                                                                $querying = $this->db->query($query)->result(); ?>
+                                <?php $subtotal = 0;
+                                foreach ($querying as  $dataa)
+                                    $subtotal += (int) $dataa->total;
+                                ?>
+                                <?= indo_currency($subtotal) ?></td>
+                            <?php if ($data->status == 'SUDAH BAYAR') { ?>
+                                <td style="text-align: center; font-weight:bold; color:green"> <?= $data->status  ?></td>
+                            <?php } ?>
+                            <?php if ($data->status == 'BELUM BAYAR') { ?>
+                                <td style="text-align: center; font-weight:bold; color:red"> <?= $data->status  ?></td>
+                            <?php } ?>
+                            
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+</div>
 
 
 

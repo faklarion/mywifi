@@ -72,7 +72,7 @@ CREATE TABLE `customer` (
   `foto_pasang` text COLLATE utf8mb4_general_ci,
   `lokasi_pasang` text COLLATE utf8mb4_general_ci,
   `bukti_bayar` text COLLATE utf8mb4_general_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `customer`
@@ -101,7 +101,7 @@ CREATE TABLE `expenditure` (
   `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` text COLLATE utf8mb4_general_ci NOT NULL,
   `created` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -115,7 +115,7 @@ CREATE TABLE `income` (
   `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` text COLLATE utf8mb4_general_ci NOT NULL,
   `created` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `income`
@@ -140,7 +140,7 @@ CREATE TABLE `invoice` (
   `status` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `created` int NOT NULL,
   `date_payment` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `invoice`
@@ -167,7 +167,7 @@ CREATE TABLE `invoice_detail` (
   `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `item_id` int NOT NULL,
   `category_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `invoice_detail`
@@ -190,7 +190,7 @@ CREATE TABLE `package_category` (
   `description` text COLLATE utf8mb4_general_ci NOT NULL,
   `date_created` int NOT NULL,
   `date_updated` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `package_category`
@@ -215,7 +215,7 @@ CREATE TABLE `package_item` (
   `category_id` int NOT NULL,
   `date_created` int NOT NULL,
   `date_update` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `package_item`
@@ -242,7 +242,7 @@ CREATE TABLE `pengaduan` (
   `status` int NOT NULL,
   `foto_perbaikan` text,
   `lokasi_perbaikan` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `pengaduan`
@@ -270,7 +270,7 @@ CREATE TABLE `services` (
   `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` text COLLATE utf8mb4_general_ci NOT NULL,
   `services_create` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `services`

@@ -74,6 +74,7 @@ class customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['customer'] = $this->customer_m->getCustomer()->result();
         $data['bill'] = $this->bill_m->getInvoice()->result();
+        $data['bill_customer'] = $this->bill_m->getInvoiceById($this->session->userdata('id'))->result();
         $data['detail'] = $this->bill_m->getInvoiceDetail()->result();
         $data['invoice'] = $this->bill_m->invoice_no();
         $data['company'] = $this->db->get('company')->row_array();

@@ -14,6 +14,20 @@ class Bill_m extends CI_Model
         return $query;
     }
 
+    public function getInvoiceById($customer_id = null)
+    {
+        $this->db->select('*, invoice.created as created_invoice');
+        $this->db->from('invoice');
+        $this->db->join('customer', 'customer.no_services = invoice.no_services');
+        $this->db->join('user', 'customer.customer_id = user.customer_id');
+
+        $this->db->where('user.id', $customer_id);
+        
+        $this->db->order_by('created_invoice', 'DESC');
+        $query = $this->db->get();
+        return $query;
+    }
+
 
     function get_all()
     {
