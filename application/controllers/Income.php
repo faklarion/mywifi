@@ -113,4 +113,12 @@ class Income extends CI_Controller
         
         $this->load->view('backend/income/grafik', $data);
     }
+
+    public function gabungan()
+    {
+        $data['tahun'] = $this->input->get('tahunFilter');
+        $data['title'] = 'Laporan Gabungan';
+        
+        $this->load->view('backend/income/gabungan', $data);
+    }
 }
