@@ -135,17 +135,20 @@ class Bill extends CI_Controller
     public function laporanperbulan()//sesuaikan di list
 	{
 
-		$bulan = $_POST['bulan'];
-    	$tahun = $_POST['tahun'];
+		$bulan  = $_GET['bulan'];
+    	$tahun  = $_GET['tahun'];
+        $status = $_GET['status'];
         $bulanBaru = $this->konversiAngkaKeBulan($bulan);
 
-		if (isset($_POST['cetaksemua'])) {
+		if (isset($_GET['cetaksemua'])) {
 			$this->data['label'] = "Semua Periode";
+            $this->data['label_status'] = 'Semua Status';
 			$this->data['invoice'] =  $this->bill_m->get_all();//
 			$this->data['title_web'] = 'Laporan Tagihan';	
 		} else {
 			$this->data['label'] = "Bulan $bulanBaru Tahun $tahun";
-			$this->data['invoice'] =  $this->bill_m->get_all_bulan($bulan,$tahun);//
+            $this->data['label_status'] = $status;
+			$this->data['invoice'] =  $this->bill_m->get_all_bulan($bulan,$tahun, $status);//
 			$this->data['title_web'] = 'Laporan Tagihan';
 		}
 		

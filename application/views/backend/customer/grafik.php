@@ -10,6 +10,7 @@
 <body>
     <div class="container">
         <h2 class="text-center"><?= $title ?></h2>
+        <p class="text-center">Tahun : <?= $tahun ?></p>
         <p class="text-center"><img src="<?= base_url('assets/images/logoicon.png')?>" width="200px"></p>
     </div>
     <div style="width: 80%; margin: auto;">
@@ -17,35 +18,41 @@
     </div>
 
     <?php  
-        $this->db->from('customer');
-        $this->db->where('status_pasang', '0');
-        $totalBelumInstall = $this->db->count_all_results();
-    ?>
-
-    <?php  
-        $this->db->from('customer');
-        $this->db->where('status_pasang', '1');
-        $totalInstall = $this->db->count_all_results();
+        $belumInstall = [];
+        $sudahInstall = [];
+        for ($bulan = 1; $bulan <= 12; $bulan++) {
+            $this->db->from('customer');
+            $this->db->where('status_pasang', '0');
+            $this->db->where('YEAR(created)', $tahun);
+            $this->db->where('MONTH(created)', $bulan);
+            $belumInstall[] = $this->db->count_all_results();
+            
+            $this->db->from('customer');
+            $this->db->where('status_pasang', '1');
+            $this->db->where('YEAR(created)', $tahun);
+            $this->db->where('MONTH(created)', $bulan);
+            $sudahInstall[] = $this->db->count_all_results();
+        }
     ?>
 
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
 
         const myChart = new Chart(ctx, {
-            type: 'bar', // Change to 'line', 'pie', 'doughnut', etc. for different chart types
+            type: 'bar',
             data: {
-                labels: ['Data Installasi'],
+                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
                 datasets: [
                     {
                         label: 'Belum Terpasang',
-                        data: [<?= $totalBelumInstall ?>],
+                        data: <?= json_encode($belumInstall) ?>,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     },
                     {
                         label: 'Sudah Terpasang',
-                        data: [<?= $totalInstall ?>],
+                        data: <?= json_encode($sudahInstall) ?>,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1

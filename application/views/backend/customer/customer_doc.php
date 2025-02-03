@@ -69,31 +69,86 @@ function tgl_indo($tanggal)
         </b></p>
     <br>
     <h5><b>Cetak : <?= $this->session->userdata('full_name') ?></b></h5>
-    <h5><b><?= $label ?></b></h5>
+    <p><?= $label ?></p>
+    <p><?= $label_status ?></p>
         <h3 align="center"><b>Laporan Customer</b></h3><br>
         <table class="word-table" style="margin-bottom: 10px">
             <tr>
-                <th>No</th>
-		<th>No Layanan</th>
-		<th>Nama</th>
-		<th>Email</th>
-        <th>No KTP</th>
-        <th>No Telp.</th>
-        <th>Alamat</th>
-        <tbody>
+                        <th style="text-align: center; width:20px">No</th>
+                        <th>No Layanan</th>
+                        <th>Tanggal Daftar</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>No KTP</th>
+                        <th>No Telp.</th>
+                        <th>Tagihan / Bulan</th>
+                        <th>Alamat</th>
+                        <th>Status Pembayaran Installasi</th>
+                        <th>Status Pemasangan</th>
+            <tbody>
                     <?php 
-                    $no=0;
-                    foreach($customer as $isi)
+                    $no=1;
+                    foreach($customer as $data)
                     {
                     ?>
                             <tr>
-		      <td><?php echo ++$no ?></td>
-		      <td><?php echo $isi->no_services ?></td>
-              <td><?php echo $isi->name ?></td>
-		      <td><?php echo $isi->email ?></td>
-		      <td><?php echo $isi->no_ktp ?></td>
-              <td><?php echo $isi->no_wa ?></td>
-              <td><?php echo $isi->address ?></td>
+                            <td style="text-align: center"><?= $no++ ?>.</td>
+                            <td><?= $data->no_services ?></td>
+                            <?php 
+                            setlocale(LC_TIME, 'id_ID.utf8'); // Pastikan sistem mendukung lokal Indonesia
+                            $timestamp = strtotime($data->created);
+                            ?>
+                            <td><?= strftime('%d %B %Y, %H:%M', $timestamp); ?></td>
+                            <td><?= $data->name ?></td>
+                            <td><?= $data->email ?></td>
+                            <td><?= $data->no_ktp ?></td>
+                            <td><?= $data->no_wa ?></td>
+                            <td style="text-align:right; font-weight:bold ">
+                                <?php $query = "SELECT *
+                                    FROM `services`
+                                        WHERE `services`.`no_services` = $data->no_services";
+                                $querying = $this->db->query($query)->result(); ?>
+                                <?php $subtotal = 0;
+                                foreach ($querying as  $dataa)
+                                    $subtotal += (int) $dataa->total;
+                                ?>
+                                <?= indo_currency($subtotal) ?>
+
+                            </td>
+                            <td><?= $data->address ?></td>
+                            <td>
+                                <?php 
+                                    if($data->status_bayar == 0) {
+                                        if($this->session->userdata('role_id') == 2) {
+                                            if(($data->bukti_bayar == NULL) || ($data->bukti_bayar == '')) {
+                                                echo '<button class="btn btn-sm btn-danger">Belum Melakukan Pembayaran Installasi !</button>';
+                                               
+                                            } elseif($data->bukti_bayar != NULL) {
+                                                echo '<button class="btn btn-sm btn-success">Upload Pembayaran Selesai, Tunggu Verifikasi Admin</button>';
+                                               
+                                                
+                                            }       
+                                        } elseif($this->session->userdata('role_id') == 1) { 
+                                            if(($data->bukti_bayar == NULL) || ($data->bukti_bayar == '')) {
+                                                echo '<button class="btn btn-sm btn-danger">Belum Melakukan Pembayaran Installasi !</button>';
+                                            } elseif($data->bukti_bayar != NULL) {
+                                                echo '<button class="btn btn-sm btn-success">Upload Pembayaran Selesai, Silakan Cek</button>';
+                                            }  
+                                        }   
+                                    } elseif($data->status_bayar == 1) {
+                                        echo '<button class="btn btn-sm btn-info">Sudah Melakukan Pembayaran Installasi</button>';
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    if($data->status_pasang == 0) {
+                                        echo '<button class="btn btn-sm btn-danger">Belum Dipasang !</button>';
+                                    } elseif($data->status_pasang == 1) {
+                                        echo '<button class="btn btn-sm btn-info">Sudah Dipasang</button>';
+                                    }
+                                ?>
+                            </td>
               </tr>
                     
                     <?php

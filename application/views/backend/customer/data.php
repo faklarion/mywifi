@@ -4,12 +4,50 @@
     <a href="<?= site_url('customer/add') ?>" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
 </div>
 <?php endif ?>
-
+<div class="mb-4">
 <?php if($this->session->userdata('role_id') == 1) : ?>
-<form action="<?php echo site_url("customer/laporanperbulan");?>" method="post">
-<br>
-<input type="submit" name="cetaksemua" value="Cetak Semua" class="btn btn-warning">
+    <form action="<?php echo site_url('customer/laporanperbulan'); ?>" method="get" target="_blank">
+    <div class="form-group">
+        <label for="tahun">Tahun</label>
+        <select name="tahun" id="tahun" class="form-control">
+            <?php
+            $tahunSekarang = date('Y');
+            for ($i = $tahunSekarang; $i >= $tahunSekarang - 7; $i--) {
+                echo "<option value='$i'>$i</option>";
+            }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="bulan">Bulan</label>
+        <select name="bulan" id="bulan" class="form-control">
+            <?php
+            $bulanList = [
+                "01" => "Januari", "02" => "Februari", "03" => "Maret", "04" => "April",
+                "05" => "Mei", "06" => "Juni", "07" => "Juli", "08" => "Agustus",
+                "09" => "September", "10" => "Oktober", "11" => "November", "12" => "Desember"
+            ];
+            foreach ($bulanList as $key => $value) {
+                echo "<option value='$key'>$value</option>";
+            }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select name="status" id="status" class="form-control">
+            <option value="1">Sudah Dipasang</option>
+            <option value="0">Belum Dipasang</option>
+        </select>
+    </div>
+
+    <br>
+    <input type="submit" name="cetak" value="Cetak" class="btn btn-warning">
 </form>
+</div>
+
 <?php endif ?>
 
 <?php $this->view('messages') ?>
@@ -25,6 +63,7 @@
                     <tr style="text-align: center">
                         <th style="text-align: center; width:20px">No</th>
                         <th>No Layanan</th>
+                        <th>Tanggal Daftar</th>
                         <th>Nama</th>
                         <th>Email</th>
                         <th>No KTP</th>
@@ -40,6 +79,7 @@
                     <tr style="text-align: center">
                         <th style="text-align: center">No</th>
                         <th>No Layanan</th>
+                        <th>Tanggal Daftar</th>
                         <th>Nama</th>
                         <th>Email</th>
                         <th>No KTP</th>
@@ -61,6 +101,11 @@
                                 <a href="<?= site_url('services/detail/') ?><?= $data->no_services ?>" class="btn btn-success" style="font-size: smaller">Rincian Paket</a>
                                 <?php endif ?>
                             </td>
+                            <?php 
+                            setlocale(LC_TIME, 'id_ID.utf8'); // Pastikan sistem mendukung lokal Indonesia
+                            $timestamp = strtotime($data->created);
+                            ?>
+                            <td><?= strftime('%d %B %Y, %H:%M', $timestamp); ?></td>
                             <td><?= $data->name ?></td>
                             <td><?= $data->email ?></td>
                             <td><?= $data->no_ktp ?></td>

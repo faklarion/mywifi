@@ -5,10 +5,51 @@
     <?php } ?>
 </div>
 
-<!-- <form action="<?php echo site_url("pengaduan/laporanperbulan"); ?>" method="post">
+<div class="mb-4">
+<?php if($this->session->userdata('role_id') == 1) : ?>
+    <form action="<?php echo site_url('pengaduan/laporanperbulan'); ?>" method="get" target="_blank">
+    <div class="form-group">
+        <label for="tahun">Tahun</label>
+        <select name="tahun" id="tahun" class="form-control">
+            <?php
+            $tahunSekarang = date('Y');
+            for ($i = $tahunSekarang; $i >= $tahunSekarang - 7; $i--) {
+                echo "<option value='$i'>$i</option>";
+            }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="bulan">Bulan</label>
+        <select name="bulan" id="bulan" class="form-control">
+            <?php
+            $bulanList = [
+                "01" => "Januari", "02" => "Februari", "03" => "Maret", "04" => "April",
+                "05" => "Mei", "06" => "Juni", "07" => "Juli", "08" => "Agustus",
+                "09" => "September", "10" => "Oktober", "11" => "November", "12" => "Desember"
+            ];
+            foreach ($bulanList as $key => $value) {
+                echo "<option value='$key'>$value</option>";
+            }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select name="status" id="status" class="form-control">
+            <option value="2">Pengaduan Selesai</option>
+            <option value="1">Pengaduan Diproses</option>
+        </select>
+    </div>
+
     <br>
-    <input type="submit" name="cetaksemua" value="Cetak Semua" class="btn btn-warning">
-</form> -->
+    <input type="submit" name="cetak" value="Cetak" class="btn btn-warning">
+</form>
+</div>
+
+<?php endif ?>
 
 
 <?php $this->view('messages') ?>
@@ -61,7 +102,7 @@
                             <td class="text-center"><?= $data->tanggal_pengaduan ?></td>
                             <td class="text-center">
                                 <?php if($data->status == 1) {
-                                    echo '<button class="btn btn-sm btn-warning">Pengaduan di Proses</button>';
+                                    echo '<button class="btn btn-sm btn-warning">Pengaduan Diproses</button>';
                                 } elseif($data->status == 2) {
                                     echo '<button class="btn btn-sm btn-success">Pengaduan selesai</button>';
                                     echo '<br>';

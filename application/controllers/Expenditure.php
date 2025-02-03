@@ -106,4 +106,12 @@ class expenditure extends CI_Controller
         $this->load->view('expenditure/expenditure_doc',$data);
     }
 
+    public function grafik()
+    {
+        $data['tahun'] = $this->input->get('tahunFilter');
+        $data['title'] = 'Grafik Pengeluaran';
+        
+        $this->load->view('backend/expenditure/grafik', $data);
+    }
+
 }

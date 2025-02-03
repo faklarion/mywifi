@@ -180,12 +180,21 @@ class customer extends CI_Controller
 
     public function laporanperbulan()//sesuaikan di list
 	{
-        
-		if (isset($_POST['cetaksemua'])) {
-			$this->data['label'] = "Semua Periode";
-			$this->data['customer'] =  $this->customer_m->get_all();//
-			$this->data['title_web'] = 'Laporan Akta Lahir';	
+        $tahun      = $this->input->get('tahun');
+        $bulan      = $this->input->get('bulan');
+        $status     = $this->input->get('status');
+
+        if($status == 0) {
+            $label_status = 'Belum Dipasang';
+        } elseif($status == 1) {
+            $label_status = 'Sudah Dipasang';
         }
+		
+        $this->data['label'] = "Bulan $bulan Tahun $tahun";
+        $this->data['label_status'] = $label_status;
+		$this->data['customer'] =  $this->customer_m->get_filter($bulan, $tahun, $status);//
+		$this->data['title_web'] = 'Laporan Installasi Customer';	
+
 		
         $this->load->view('backend/customer/customer_doc',$this->data);
 	}
@@ -265,14 +274,31 @@ class customer extends CI_Controller
     public function verif_pembayaran()
     {
         $customer_id = $this->input->post('customer_id');
+
+        $dataCustomer = $this->customer_m->get_customer_by_id($customer_id)->row();
+
+        $no_services = $dataCustomer->no_services;
+
+        $dataService = $this->services_m->getServices($no_services)->row();
+
+        $price = $dataService->price;
         
         $data = array(
             'status_bayar' => 1,
         );
 
+        $dataIncome = array(
+            'date_payment' => date('Y-m-d'),
+            'nominal' => $price,
+            'remark' => 'Pembayaran installasi no layanan '.$no_services.' a/n '.$dataCustomer->name.'',
+        );
+
+
+        
         $this->db->where('customer_id', $customer_id);
         $this->db->update('customer', $data);
-
+        $this->db->insert('income', $dataIncome);
+        
         $this->session->set_flashdata('success', 'Data berhasil diperbarui');
                 
         redirect('customer');
@@ -321,6 +347,7 @@ public function print_kartu($id)
 
 public function grafik()
 {
+    $data['tahun'] = $this->input->get('tahun');
     $data['title'] = 'Grafik Informasi Installasi';
     
     $this->load->view('backend/customer/grafik', $data);

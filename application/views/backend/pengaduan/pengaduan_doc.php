@@ -69,31 +69,44 @@ function tgl_indo($tanggal)
         </b></p>
     <br>
     <h5><b>Cetak : <?= $this->session->userdata('full_name') ?></b></h5>
-    <h5><b><?= $label ?></b></h5>
-        <h3 align="center"><b>Laporan Customer</b></h3><br>
+    <p><?= $label ?></p>
+    <p><?= $label_status ?></p>
+        <h3 align="center"><b>Laporan Pengaduan</b></h3><br>
         <table class="word-table" style="margin-bottom: 10px">
             <tr>
-                <th>No</th>
-		<th>No Layanan</th>
-		<th>Nama</th>
-		<th>Email</th>
-        <th>No KTP</th>
-        <th>No Telp.</th>
-        <th>Alamat</th>
+                <th style="text-align: center; width:20px">No</th>
+                <th>No Aduan</th>
+                <th>Data Pelanggan</th>
+                <th>Keluhan</th>
+                <th>Tanggal Pengaduan</th>
+                <th>Status</th>
         <tbody>
                     <?php 
-                    $no=0;
-                    foreach($customer as $isi)
+                    $no=1;
+                    foreach($pengaduan as $data)
                     {
                     ?>
                             <tr>
-		      <td><?php echo ++$no ?></td>
-		      <td><?php echo $isi->no_services ?></td>
-              <td><?php echo $isi->name ?></td>
-		      <td><?php echo $isi->email ?></td>
-		      <td><?php echo $isi->no_ktp ?></td>
-              <td><?php echo $isi->no_wa ?></td>
-              <td><?php echo $isi->address ?></td>
+                            <td class="text-center"><?= $no++ ?>.</td>
+                            <td class="text-center"><?= $data->pengaduan_id ?></td>
+                            <td>
+                                <?= 'Nama : '.$data->name.''; ?>
+                                <br>
+                                <?= 'No Services : '.$data->no_services.''; ?>
+                                <br>
+                                <?= 'Alamat : '.$data->address.''; ?>
+                                <br>
+                                <?= 'No HP : '.$data->phone.''; ?>
+                            </td>
+                            <td><?= $data->keluhan ?></td>
+                            <td class="text-center"><?= $data->tanggal_pengaduan ?></td>
+                            <td class="text-center">
+                                <?php if($data->status == 1) {
+                                    echo '<button class="btn btn-sm btn-warning">Pengaduan Diproses</button>';
+                                } elseif($data->status == 2) {
+                                    echo '<button class="btn btn-sm btn-success">Pengaduan selesai</button>';
+                                } ?>
+                            </td>
               </tr>
                     
                     <?php

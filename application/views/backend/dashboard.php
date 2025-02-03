@@ -185,22 +185,129 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Cetak Statistik Grafik</div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Cetak Statistik Grafik Installasi</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: small">
-                            <a href="<?= base_url('customer/grafik') ?>" target="_blank"> <button class="btn btn-sm btn-success">Cetak Grafik Installasi Pelanggan</button> </a>
-                        </div>
-                        <br>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: small">
-                            <a href="<?= base_url('pengaduan/grafik') ?>" target="_blank"> <button class="btn btn-sm btn-primary">Cetak Grafik Pengaduan Pelanggan</button> </a>
+                            <select id="tahun" class="form-control form-control-sm">
+                                <option value="">Pilih Tahun</option>
+                                <?php for ($i = date('Y'); $i >= 2000; $i--): ?>
+                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <button class="btn btn-sm btn-success mt-2" id="cetakGrafik">Cetak Grafik Installasi Pelanggan</button>
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fa fa-tab;e fa-2x text-gray-300"></i>
+                        <i class="fa fa-table fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('cetakGrafik').addEventListener('click', function () {
+            var tahun = document.getElementById('tahun').value;
+            if (tahun) {
+                window.open("<?= base_url('customer/grafik') ?>?tahun=" + tahun, '_blank');
+            } else {
+                alert('Silakan pilih tahun terlebih dahulu.');
+            }
+        });
+    </script>
+
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Cetak Statistik Grafik Pengaduan
+                        </div>
+
+                        <form action="<?= base_url('pengaduan/grafik') ?>" method="GET" target="_blank">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: small">
+                                <select name="tahunFilter" class="form-control form-control-sm" required>
+                                    <option value="">Pilih Tahun</option>
+                                    <?php for ($i = date('Y'); $i >= 2000; $i--): ?>
+                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-primary mt-2">Cetak Grafik Pengaduan Pelanggan</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-table fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Cetak Statistik Grafik Pengeluaran
+                        </div>
+
+                        <form action="<?= base_url('expenditure/grafik') ?>" method="GET" target="_blank">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: small">
+                                <select name="tahunFilter" class="form-control form-control-sm" required>
+                                    <option value="">Pilih Tahun</option>
+                                    <?php for ($i = date('Y'); $i >= 2000; $i--): ?>
+                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-warning mt-2">Cetak Grafik Pengeluaran</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-table fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Cetak Statistik Grafik Pemasukan
+                        </div>
+
+                        <form action="<?= base_url('income/grafik') ?>" method="GET" target="_blank">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: small">
+                                <select name="tahunFilter" class="form-control form-control-sm" required>
+                                    <option value="">Pilih Tahun</option>
+                                    <?php for ($i = date('Y'); $i >= 2000; $i--): ?>
+                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-info mt-2">Cetak Grafik Pemasukan</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-table fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
 
 

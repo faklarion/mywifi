@@ -3,7 +3,7 @@
     <a href="" id="#addModal" data-toggle="modal" data-target="#addModal" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
 </div>
 
-                    <form action="<?php echo site_url("bill/laporanperbulan");?>" method="post">
+                    <form action="<?php echo site_url("bill/laporanperbulan");?>" method="get" target="_blank">
                         <label for="bulan">Pilih Bulan:</label>
                         <select id="bulan" name="bulan" class="form-control">
                         <option value="01">Januari</option>
@@ -30,19 +30,16 @@
                             }
                             ?>
                         </select>
-                        <br>
-                        <input type="submit" name="submit" value="Submit" class="btn btn-primary">
-                        <input type="submit" name="cetaksemua" value="Cetak Semua" class="btn btn-warning">
-                    </form>
-                            <br>
-                    <form action="<?php echo site_url("bill/laporanperstatus");?>" method="post">
                         <label for="status">Pilih Status:</label>
                         <select id="status" name="status" class="form-control">
                         <option value="BELUM BAYAR">BELUM BAYAR</option>
                         <option value="SUDAH BAYAR">SUDAH BAYAR</option>
                         </select>
+                        <br>
                         <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                        <input type="submit" name="cetaksemua" value="Cetak Semua" class="btn btn-warning">
                     </form>
+                            <br>
 
 <?php $this->view('messages') ?>
 <!-- DataTales Example -->

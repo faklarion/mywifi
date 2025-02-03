@@ -31,6 +31,19 @@ class Pengaduan_m extends CI_Model
         return $this->db->get('pengaduan')->result();
     }
 
+    function get_filter($bulan, $tahun, $status)
+    {
+        $this->db->select('*');
+        $this->db->join('user', 'user.id = pengaduan.user_id');
+        $this->db->join('customer', 'customer.customer_id = user.customer_id');
+        $this->db->where('MONTH(tanggal_pengaduan) = '.$bulan.'');
+        $this->db->where('YEAR(tanggal_pengaduan) = '.$tahun.'');
+        $this->db->where('status', $status);
+
+        $this->db->order_by('pengaduan_id', 'DESC');
+        return $this->db->get('pengaduan')->result();
+    }
+
     function get_by_id($id)
     {
         $this->db->select('*');

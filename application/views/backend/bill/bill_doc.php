@@ -69,7 +69,8 @@ function tgl_indo($tanggal)
         </b></p>
     <br>
     <h5><b>Cetak : <?= $this->session->userdata('full_name') ?></b></h5>
-    <h5><b><?= $label ?></b></h5>
+    <p><?= $label ?></p>
+    <p><?= $label_status ?></p>
         <h3 align="center"><b><?= $title_web ?></b></h3><br>
         <table class="word-table" style="margin-bottom: 10px">
             <tr>

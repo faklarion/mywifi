@@ -10,6 +10,7 @@
 <body>
     <div class="container">
         <h2 class="text-center"><?= $title ?></h2>
+        <p class="text-center">Tahun : <?= isset($tahun) ? $tahun : 'Tahun tidak tersedia' ?></p>
         <p class="text-center"><img src="<?= base_url('assets/images/logoicon.png')?>" width="200px"></p>
     </div>
     <div style="width: 80%; margin: auto;">
@@ -17,35 +18,49 @@
     </div>
 
     <?php  
-        $this->db->from('pengaduan');
-        $this->db->where('status', '2');
-        $totalPengaduan = $this->db->count_all_results();
-    ?>
+        $labels = [];
+        $dataBelum = [];
+        $dataSudah = [];
 
-    <?php  
-        $this->db->from('pengaduan');
-        $this->db->where('status', '1');
-        $totalBelumPengaduan = $this->db->count_all_results();
+        for ($i = 1; $i <= 12; $i++) {
+            // Data belum ditangani
+            $this->db->from('pengaduan');
+            $this->db->where('MONTH(tanggal_pengaduan)', $i);
+            $this->db->where('YEAR(tanggal_pengaduan)', $tahun);
+            $this->db->where('status', '1');
+            $totalBelum = $this->db->count_all_results();
+
+            // Data sudah ditangani
+            $this->db->from('pengaduan');
+            $this->db->where('MONTH(tanggal_pengaduan)', $i);
+            $this->db->where('YEAR(tanggal_pengaduan)', $tahun);
+            $this->db->where('status', '2');
+            $totalSudah = $this->db->count_all_results();
+
+            $labels[] = date('F', mktime(0, 0, 0, $i, 1));
+            $dataBelum[] = $totalBelum;
+            $dataSudah[] = $totalSudah;
+        }
     ?>
 
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
 
         const myChart = new Chart(ctx, {
-            type: 'bar', // Change to 'line', 'pie', 'doughnut', etc. for different chart types
+            type: 'bar',
             data: {
-                labels: ['Data Pengaduan'],
+                labels: <?= json_encode($labels) ?>,
                 datasets: [
                     {
                         label: 'Belum Ditangani',
-                        data: [<?= $totalBelumPengaduan ?>],
+                        data: <?= json_encode($dataBelum) ?>,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     },
                     {
                         label: 'Sudah Ditangani',
-                        data: [<?= $totalPengaduan ?>],
+                        data: <?= json_encode($dataSudah) ?>,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1

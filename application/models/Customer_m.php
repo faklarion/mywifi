@@ -28,8 +28,17 @@ class Customer_m extends CI_Model
 
     function get_all()
     {
-        $this->db->select('customer_id,name,no_services,email,address,no_wa,no_ktp,created,status_pasang');
+        $this->db->select('customer_id,name,no_services,email,address,no_wa,no_ktp,created,status_pasang,status_pasang');
         
+        return $this->db->get('customer')->result();
+    }
+
+    function get_filter($bulan, $tahun, $status)
+    {
+        $this->db->select('*');
+        $this->db->where('MONTH(created) = '.$bulan.'');
+        $this->db->where('YEAR(created) = '.$tahun.'');
+        $this->db->where('status_pasang', $status);
         return $this->db->get('customer')->result();
     }
 

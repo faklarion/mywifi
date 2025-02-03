@@ -161,11 +161,22 @@ class pengaduan extends CI_Controller
     public function laporanperbulan()//sesuaikan di list
 	{
         
-		if (isset($_POST['cetaksemua'])) {
-			$this->data['label'] = "Semua Periode";
-			$this->data['pengaduan'] =  $this->pengaduan_m->get_all();//
-			$this->data['title_web'] = 'Laporan Akta Lahir';	
+        $status = $this->input->get('status');
+        $bulan  = $this->input->get('bulan');
+        $tahun  = $this->input->get('tahun');
+
+        if($status == 1) {
+            $label_status = 'Pengaduan diproses';
+        } elseif($status == 2) {
+            $label_status = 'Pengaduan selesai';
         }
+        
+        
+        $this->data['label'] = "Bulan $bulan Tahun $tahun";
+        $this->data['label_status'] = $label_status;
+		$this->data['pengaduan'] =  $this->pengaduan_m->get_filter($bulan, $tahun, $status);//
+		$this->data['title_web'] = 'Laporan Pengaduan';	
+        
 		
         $this->load->view('backend/pengaduan/pengaduan_doc',$this->data);
 	}
@@ -189,6 +200,7 @@ class pengaduan extends CI_Controller
     
     public function grafik()
     {
+        $data['tahun'] = $this->input->get('tahunFilter');
         $data['title'] = 'Grafik Pengaduan';
         
         $this->load->view('backend/pengaduan/grafik', $data);

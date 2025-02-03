@@ -105,4 +105,12 @@ class Income extends CI_Controller
         
         $this->load->view('income/income_doc',$data);
     }
+
+    public function grafik()
+    {
+        $data['tahun'] = $this->input->get('tahunFilter');
+        $data['title'] = 'Grafik Pemasukan';
+        
+        $this->load->view('backend/income/grafik', $data);
+    }
 }

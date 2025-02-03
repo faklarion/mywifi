@@ -37,12 +37,13 @@ class Bill_m extends CI_Model
     }
 
 
-    function get_all_bulan($bulan,$tahun)
+    function get_all_bulan($bulan,$tahun, $status)
     {
         $this->db->select('customer.no_services,customer.name,status,no_wa,invoice');
         $this->db->join('customer', 'invoice.no_services = customer.no_services');
         $this->db->where('month', $bulan);
         $this->db->where('year', $tahun);
+        $this->db->where('status', $status);
         return $this->db->get('invoice')->result();
     }
 

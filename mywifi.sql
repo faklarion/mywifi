@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 20 Jan 2025 pada 14.14
+-- Waktu pembuatan: 30 Jan 2025 pada 11.10
 -- Versi server: 8.0.30
 -- Versi PHP: 7.4.33
 
@@ -66,28 +66,29 @@ CREATE TABLE `customer` (
   `address` text COLLATE utf8mb4_general_ci NOT NULL,
   `no_wa` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `no_ktp` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `created` int NOT NULL,
+  `created` timestamp NULL DEFAULT NULL,
   `status_pasang` int NOT NULL DEFAULT '0',
   `status_bayar` int NOT NULL,
   `foto_pasang` text COLLATE utf8mb4_general_ci,
   `lokasi_pasang` text COLLATE utf8mb4_general_ci,
   `bukti_bayar` text COLLATE utf8mb4_general_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `customer`
 --
 
 INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`, `no_wa`, `no_ktp`, `created`, `status_pasang`, `status_bayar`, `foto_pasang`, `lokasi_pasang`, `bukti_bayar`) VALUES
-(4, 'Eka Erlina Andayani', '230806132134', 'eka@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', 1691320933, 1, 1, NULL, NULL, NULL),
-(5, 'Muhammad Dony Rifani', '230806132222', 'dony@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', 1691320965, 1, 1, NULL, NULL, NULL),
-(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', 1691802852, 1, 1, NULL, NULL, NULL),
-(7, 'Suher', '240928024259', 'suher@gmail.com', 'Bjb tungkaran ', '082183291920', '637129219238', 1727491407, 1, 1, NULL, NULL, NULL),
-(9, 'Udin', '241015031017', 'udin@gmail.com', 'Jl Mangga', '0882121921', '6371020504029321', 1728961817, 0, 1, NULL, NULL, NULL),
-(10, 'opal', '241017110830', 'opal@gmail.com', 'JL Keruwing', '0882121921', '6371020504029322', 1729163310, 0, 1, NULL, NULL, NULL),
-(11, 'riza', '241017111101', 'riza@gmail.com', 'Jl Bumi Mas', '0882121922', '6371020504029322', 1729163461, 0, 1, NULL, NULL, NULL),
-(12, 'ade', '241017111406', 'ade@gmail.com', 'Pal 8', '08821219222', '6371020504029328', 1729163646, 0, 1, NULL, NULL, NULL),
-(13, 'Ical', '250120061526', 'ical@gmail.com', 'JL Mangga', '0882121921', '6371020504029327', 1737353726, 1, 1, '678df9d723fee.jpg', 'Jl Mangga', '678df2890d4f6.jpg');
+(4, 'Eka Erlina Andayani', '230806132134', 'eka@gmail.com', ' Jl Mentaos Raya', '08535003142152', '71837676471442532', '2025-01-30 10:22:22', 1, 1, NULL, NULL, NULL),
+(5, 'Muhammad Dony Rifani', '230806132222', 'dony@gmail.com', 'Jl Murung Raya ', '083142141231', '0391048148210432', '2025-01-30 10:22:22', 1, 1, NULL, NULL, NULL),
+(6, 'Muhammad Rahmatullah', '230812031355', 'rahmat@gmail.com', ' asad', '0853547183', '654712819378491', '2025-01-30 10:22:22', 1, 1, NULL, NULL, NULL),
+(7, 'Suher', '240928024259', 'suher@gmail.com', 'Bjb tungkaran ', '082183291920', '637129219238', '2025-01-30 10:22:22', 1, 1, NULL, NULL, NULL),
+(9, 'Udin', '241015031017', 'udin@gmail.com', 'Jl Mangga', '0882121921', '6371020504029321', '2025-01-30 10:22:22', 0, 1, NULL, NULL, NULL),
+(10, 'opal', '241017110830', 'opal@gmail.com', 'JL Keruwing', '0882121921', '6371020504029322', '2025-01-30 10:22:22', 0, 1, NULL, NULL, NULL),
+(11, 'riza', '241017111101', 'riza@gmail.com', 'Jl Bumi Mas', '0882121922', '6371020504029322', '2025-01-30 10:22:22', 0, 1, NULL, NULL, NULL),
+(12, 'ade', '241017111406', 'ade@gmail.com', 'Pal 8', '08821219222', '6371020504029328', '2025-01-30 10:22:22', 0, 1, NULL, NULL, NULL),
+(13, 'Ical', '250120061526', 'ical@gmail.com', 'JL Mangga', '0882121921', '6371020504029327', '2025-01-30 10:22:22', 1, 1, '678df9d723fee.jpg', 'Jl Mangga', '678df2890d4f6.jpg'),
+(14, 'Nafis', '250125030437', 'nafis@gmail.com', 'Alalak Utara', '089123219210', '6371022844029321', '2025-01-30 10:22:22', 0, 1, NULL, NULL, '679455b5d62b9.jpg');
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,14 @@ CREATE TABLE `expenditure` (
   `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` text COLLATE utf8mb4_general_ci NOT NULL,
   `created` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `expenditure`
+--
+
+INSERT INTO `expenditure` (`expenditure_id`, `date_payment`, `nominal`, `remark`, `created`) VALUES
+(2, '2025-01-30', '100000', ' Beli Kain', 1738235036);
 
 -- --------------------------------------------------------
 
@@ -115,7 +123,7 @@ CREATE TABLE `income` (
   `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` text COLLATE utf8mb4_general_ci NOT NULL,
   `created` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `income`
@@ -123,7 +131,8 @@ CREATE TABLE `income` (
 
 INSERT INTO `income` (`income_id`, `date_payment`, `nominal`, `remark`, `created`) VALUES
 (5, '2023-03-01', '296650', 'Pembayaran iuran no layanan 230806132222 a/n Muhammad Dony Rifani Periode Februari 2023', 1691324311),
-(6, '2023-08-12', '707350', 'Pembayaran iuran no layanan 230812031355 a/n Muhammad Rahmatullah Periode Juli 2023', 1691802999);
+(6, '2023-08-12', '707350', 'Pembayaran iuran no layanan 230812031355 a/n Muhammad Rahmatullah Periode Juli 2023', 1691802999),
+(7, '2025-01-25', '216730', 'Pembayaran installasi no layanan 250125030437 a/n Nafis', 0);
 
 -- --------------------------------------------------------
 
@@ -140,7 +149,7 @@ CREATE TABLE `invoice` (
   `status` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `created` int NOT NULL,
   `date_payment` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `invoice`
@@ -167,7 +176,7 @@ CREATE TABLE `invoice_detail` (
   `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `item_id` int NOT NULL,
   `category_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `invoice_detail`
@@ -190,7 +199,7 @@ CREATE TABLE `package_category` (
   `description` text COLLATE utf8mb4_general_ci NOT NULL,
   `date_created` int NOT NULL,
   `date_updated` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `package_category`
@@ -215,7 +224,7 @@ CREATE TABLE `package_item` (
   `category_id` int NOT NULL,
   `date_created` int NOT NULL,
   `date_update` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `package_item`
@@ -242,7 +251,7 @@ CREATE TABLE `pengaduan` (
   `status` int NOT NULL,
   `foto_perbaikan` text,
   `lokasi_perbaikan` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `pengaduan`
@@ -270,7 +279,7 @@ CREATE TABLE `services` (
   `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `remark` text COLLATE utf8mb4_general_ci NOT NULL,
   `services_create` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `services`
@@ -280,7 +289,8 @@ INSERT INTO `services` (`services_id`, `item_id`, `category_id`, `no_services`, 
 (5, 3, 3, '230806132134', '1', '216730', '0', '216730', '', 1691321020),
 (6, 5, 3, '230806132222', '1', '296650', '0', '296650', '', 1691321040),
 (7, 7, 3, '230812031355', '1', '707350', '0', '707350', '', 1691802912),
-(8, 4, 3, '240928024259', '1', '280000', '0', '280000', '', 1727493436);
+(8, 4, 3, '240928024259', '1', '280000', '0', '280000', '', 1727493436),
+(9, 3, 3, '250125030437', '1', '216730', '0', '216730', '', 1737774295);
 
 -- --------------------------------------------------------
 
@@ -321,7 +331,8 @@ INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `imag
 (20, 'riza@gmail.com', '$2y$10$HIeHMGoo4qmbsIa.8MzgeuhyBGJc8WleaGgFQDI3K/R4ATRJS19z6', 'riza', '0882121922', 'Jl Bumi Mas', '6710f0c550991.png', '2', 1, 1729163461, 'Male', 11),
 (21, 'ade@gmail.com', '$2y$10$Xs1.p65lRlLeVgeJ49vMtu.rMKpvsZsLNWN1LyxIJX.qpHlxd0p/G', 'ade', '08821219222', 'Pal 8', '6710f17e018ac.jpg', '2', 1, 1729163646, 'Male', 12),
 (22, 'faisal@gmail.com', '$2y$04$hpf5TCVLIkSZ4CHll3vEbOHySIn/hcEfpmn14JDqC0jAVUqvGuy/e', 'Faisal', '082191949376', 'JL. MANGGA III KOMP AR RAHIM NO. 44', '17e2d03fdcb76f8e3df9a08577bb9239.jpg', '1', 1, 1729219246, 'Male', NULL),
-(23, 'ical@gmail.com', '$2y$10$pkwrnTFWyO6ENI1lUcm8teucZNfL9FxEOEyAyF7.mYjma/5Ezc5eW', 'Ical', '0882121921', 'JL Mangga', '678de9fe19eac.jpg', '2', 1, 1737353726, 'Male', 13);
+(23, 'ical@gmail.com', '$2y$10$pkwrnTFWyO6ENI1lUcm8teucZNfL9FxEOEyAyF7.mYjma/5Ezc5eW', 'Ical', '0882121921', 'JL Mangga', '678de9fe19eac.jpg', '2', 1, 1737353726, 'Male', 13),
+(24, 'nafis@gmail.com', '$2y$10$DFqsIYAgi.8xWIVZT3nj6.KiKrJn2ZREqM9.1CMV04db/ffyfmDb.', 'Nafis', '089123219210', 'Alalak Utara', '679454c522ee0.jpg', '2', 1, 1737774277, 'Male', 14);
 
 -- --------------------------------------------------------
 
@@ -445,19 +456,19 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT untuk tabel `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `expenditure`
 --
 ALTER TABLE `expenditure`
-  MODIFY `expenditure_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `expenditure_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `income`
 --
 ALTER TABLE `income`
-  MODIFY `income_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `income_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `invoice`
@@ -493,13 +504,13 @@ ALTER TABLE `pengaduan`
 -- AUTO_INCREMENT untuk tabel `services`
 --
 ALTER TABLE `services`
-  MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_token`
