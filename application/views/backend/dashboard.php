@@ -336,7 +336,35 @@
         </div>
     </div>
 
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-dark shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                            Cetak Laporan Laba
+                        </div>
 
+                        <form action="<?= base_url('income/laba') ?>" method="GET" target="_blank">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: small">
+                                <select name="tahunFilter" class="form-control form-control-sm" required>
+                                    <option value="">Pilih Tahun</option>
+                                    <?php for ($i = date('Y'); $i >= 2000; $i--): ?>
+                                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-dark mt-2">Cetak Laporan Laba</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-table fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
