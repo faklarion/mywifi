@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 30 Jan 2025 pada 11.10
+-- Waktu pembuatan: 08 Feb 2025 pada 01.26
 -- Versi server: 8.0.30
 -- Versi PHP: 7.4.33
 
@@ -60,19 +60,19 @@ INSERT INTO `company` (`id`, `company_name`, `sub_name`, `description`, `picture
 
 CREATE TABLE `customer` (
   `customer_id` int NOT NULL,
-  `name` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_services` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `address` text COLLATE utf8mb4_general_ci NOT NULL,
-  `no_wa` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_ktp` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(128)  NOT NULL,
+  `no_services` varchar(128)  NOT NULL,
+  `email` varchar(128)  NOT NULL,
+  `address` text  NOT NULL,
+  `no_wa` varchar(128)  NOT NULL,
+  `no_ktp` varchar(128)  NOT NULL,
   `created` timestamp NULL DEFAULT NULL,
   `status_pasang` int NOT NULL DEFAULT '0',
   `status_bayar` int NOT NULL,
-  `foto_pasang` text COLLATE utf8mb4_general_ci,
-  `lokasi_pasang` text COLLATE utf8mb4_general_ci,
-  `bukti_bayar` text COLLATE utf8mb4_general_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `foto_pasang` text ,
+  `lokasi_pasang` text ,
+  `bukti_bayar` text 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `customer`
@@ -88,7 +88,8 @@ INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`
 (11, 'riza', '241017111101', 'riza@gmail.com', 'Jl Bumi Mas', '0882121922', '6371020504029322', '2025-01-30 10:22:22', 0, 1, NULL, NULL, NULL),
 (12, 'ade', '241017111406', 'ade@gmail.com', 'Pal 8', '08821219222', '6371020504029328', '2025-01-30 10:22:22', 0, 1, NULL, NULL, NULL),
 (13, 'Ical', '250120061526', 'ical@gmail.com', 'JL Mangga', '0882121921', '6371020504029327', '2025-01-30 10:22:22', 1, 1, '678df9d723fee.jpg', 'Jl Mangga', '678df2890d4f6.jpg'),
-(14, 'Nafis', '250125030437', 'nafis@gmail.com', 'Alalak Utara', '089123219210', '6371022844029321', '2025-01-30 10:22:22', 0, 1, NULL, NULL, '679455b5d62b9.jpg');
+(14, 'Nafis', '250125030437', 'nafis@gmail.com', 'Alalak Utara', '089123219210', '6371022844029321', '2025-01-30 10:22:22', 0, 1, NULL, NULL, '679455b5d62b9.jpg'),
+(16, 'Setiawan', '250208012510', 'setiawan123@gmail.com', 'Jl Sundai', '082132132912', '637102050402421', '2025-02-07 17:25:10', 0, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -98,11 +99,11 @@ INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`
 
 CREATE TABLE `expenditure` (
   `expenditure_id` int NOT NULL,
-  `date_payment` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
+  `date_payment` varchar(125) NOT NULL,
+  `nominal` varchar(125)  NOT NULL,
+  `remark` text  NOT NULL,
   `created` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `expenditure`
@@ -119,9 +120,9 @@ INSERT INTO `expenditure` (`expenditure_id`, `date_payment`, `nominal`, `remark`
 
 CREATE TABLE `income` (
   `income_id` int NOT NULL,
-  `date_payment` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `nominal` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
+  `date_payment` varchar(125)  NOT NULL,
+  `nominal` varchar(125)  NOT NULL,
+  `remark` text  NOT NULL,
   `created` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -142,11 +143,11 @@ INSERT INTO `income` (`income_id`, `date_payment`, `nominal`, `remark`, `created
 
 CREATE TABLE `invoice` (
   `invoice_id` int NOT NULL,
-  `invoice` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `month` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `invoice` varchar(128)  NOT NULL,
+  `month` varchar(11)  NOT NULL,
   `year` int NOT NULL,
-  `no_services` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_services` varchar(128)  NOT NULL,
+  `status` varchar(128)  NOT NULL,
   `created` int NOT NULL,
   `date_payment` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -168,12 +169,12 @@ INSERT INTO `invoice` (`invoice_id`, `invoice`, `month`, `year`, `no_services`, 
 
 CREATE TABLE `invoice_detail` (
   `detail_id` int NOT NULL,
-  `invoice_id` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `price` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `qty` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `disc` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
-  `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `invoice_id` varchar(128)  NOT NULL,
+  `price` varchar(125)  NOT NULL,
+  `qty` varchar(125)  NOT NULL,
+  `disc` varchar(128)  NOT NULL,
+  `remark` text  NOT NULL,
+  `total` varchar(128)  NOT NULL,
   `item_id` int NOT NULL,
   `category_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -195,8 +196,8 @@ INSERT INTO `invoice_detail` (`detail_id`, `invoice_id`, `price`, `qty`, `disc`,
 
 CREATE TABLE `package_category` (
   `p_category_id` int NOT NULL,
-  `name` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(125)  NOT NULL,
+  `description` text  NOT NULL,
   `date_created` int NOT NULL,
   `date_updated` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -217,10 +218,10 @@ INSERT INTO `package_category` (`p_category_id`, `name`, `description`, `date_cr
 
 CREATE TABLE `package_item` (
   `p_item_id` int NOT NULL,
-  `name` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `price` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `picture` text COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(125)  NOT NULL,
+  `price` varchar(125)  NOT NULL,
+  `picture` text  NOT NULL,
+  `description` text  NOT NULL,
   `category_id` int NOT NULL,
   `date_created` int NOT NULL,
   `date_update` int NOT NULL
@@ -272,12 +273,12 @@ CREATE TABLE `services` (
   `services_id` int NOT NULL,
   `item_id` int NOT NULL,
   `category_id` int NOT NULL,
-  `no_services` varchar(125) COLLATE utf8mb4_general_ci NOT NULL,
-  `qty` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `price` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `disc` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `total` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `remark` text COLLATE utf8mb4_general_ci NOT NULL,
+  `no_services` varchar(125)  NOT NULL,
+  `qty` varchar(128)  NOT NULL,
+  `price` varchar(128)  NOT NULL,
+  `disc` varchar(128)  DEFAULT NULL,
+  `total` varchar(128)  NOT NULL,
+  `remark` text  NOT NULL,
   `services_create` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -332,7 +333,9 @@ INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`, `address`, `imag
 (21, 'ade@gmail.com', '$2y$10$Xs1.p65lRlLeVgeJ49vMtu.rMKpvsZsLNWN1LyxIJX.qpHlxd0p/G', 'ade', '08821219222', 'Pal 8', '6710f17e018ac.jpg', '2', 1, 1729163646, 'Male', 12),
 (22, 'faisal@gmail.com', '$2y$04$hpf5TCVLIkSZ4CHll3vEbOHySIn/hcEfpmn14JDqC0jAVUqvGuy/e', 'Faisal', '082191949376', 'JL. MANGGA III KOMP AR RAHIM NO. 44', '17e2d03fdcb76f8e3df9a08577bb9239.jpg', '1', 1, 1729219246, 'Male', NULL),
 (23, 'ical@gmail.com', '$2y$10$pkwrnTFWyO6ENI1lUcm8teucZNfL9FxEOEyAyF7.mYjma/5Ezc5eW', 'Ical', '0882121921', 'JL Mangga', '678de9fe19eac.jpg', '2', 1, 1737353726, 'Male', 13),
-(24, 'nafis@gmail.com', '$2y$10$DFqsIYAgi.8xWIVZT3nj6.KiKrJn2ZREqM9.1CMV04db/ffyfmDb.', 'Nafis', '089123219210', 'Alalak Utara', '679454c522ee0.jpg', '2', 1, 1737774277, 'Male', 14);
+(24, 'nafis@gmail.com', '$2y$10$DFqsIYAgi.8xWIVZT3nj6.KiKrJn2ZREqM9.1CMV04db/ffyfmDb.', 'Nafis', '089123219210', 'Alalak Utara', '679454c522ee0.jpg', '2', 1, 1737774277, 'Male', 14),
+(25, 'setiawan@gmail.com', '$2y$10$8kotqwVU5/95x9smNGaa7.wxQ4DUUI3cpI9gvUDK6ZmrOOh8Yaj/G', 'Setiawam', '082132132912', 'Sundai', '67a6b1ee2312c.jpg', '2', 1, 1738977774, 'Male', 15),
+(26, 'setiawan123@gmail.com', '$2y$10$wbHwcJCOQJUu83FVHZiXNerbHSUdLEZNg7nht7EMBpE6nAT7hM0z.', 'Setiawan', '082132132912', 'Jl Sundai', '67a6b2767823a.jpg', '2', 1, 1738977910, 'Male', 16);
 
 -- --------------------------------------------------------
 
@@ -456,7 +459,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT untuk tabel `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `expenditure`
@@ -510,7 +513,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_token`

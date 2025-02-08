@@ -281,7 +281,7 @@ class auth extends CI_Controller
             // Jika berhasil upload gambar
             $imageData = $this->upload->data();
             $imageName = $imageData['file_name'];
-    
+            date_default_timezone_set('Asia/Makassar');
             // Simpan data ke database
             $data_cust = [
                 'name' => $name,
@@ -290,7 +290,7 @@ class auth extends CI_Controller
                 'address' => $address,
                 'no_ktp' => $no_ktp,
                 'no_wa' => $phone,
-                'created' => time(),
+                'created' => date('Y-m-d H:i:s'),
             ];
     
             $this->db->insert('customer', $data_cust);
