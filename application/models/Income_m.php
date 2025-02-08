@@ -46,6 +46,8 @@ class Income_m extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+
     public function getIncomeJan()
     {
         $this->db->select('*');

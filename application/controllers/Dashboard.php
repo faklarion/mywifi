@@ -16,10 +16,11 @@ class Dashboard extends CI_Controller
         $data['totalCustomer'] = $this->customer_m->getCustomer()->num_rows();
         $data['totalServices'] = $this->package_m->getPItem()->num_rows();
         $data['expenditure'] = $this->expenditure_m->getexpenditure()->result();
-        $data['incomeThisMonth'] = $this->income_m->getIncomeThisMonth()->result();
-        $data['ExpenditureThisMonth'] = $this->expenditure_m->getExpenditureThisMonth()->result();
+        $data['incomeThisMonth'] = $this->income_m->getincomeall()->result();
+        $data['ExpenditureThisMonth'] = $this->expenditure_m->getExpenditureAll()->result();
         $data['pendingPayment'] = $this->bill_m->getPendingPayment()->num_rows();
         $data['TotalpendingPayment'] = $this->bill_m->getTotalPendingPayment()->result();
+        $data['TotalpendingInstall'] = $this->bill_m->getTotalPendingInstall()->result();
         $data['incomeJan'] = $this->income_m->getIncomeJan()->result();
         $data['incomeFeb'] = $this->income_m->getIncomeFeb()->result();
         $data['incomeMar'] = $this->income_m->getIncomeMar()->result();

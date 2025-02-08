@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 08 Feb 2025 pada 01.26
+-- Waktu pembuatan: 08 Feb 2025 pada 04.32
 -- Versi server: 8.0.30
 -- Versi PHP: 7.4.33
 
@@ -60,18 +60,18 @@ INSERT INTO `company` (`id`, `company_name`, `sub_name`, `description`, `picture
 
 CREATE TABLE `customer` (
   `customer_id` int NOT NULL,
-  `name` varchar(128)  NOT NULL,
-  `no_services` varchar(128)  NOT NULL,
-  `email` varchar(128)  NOT NULL,
-  `address` text  NOT NULL,
-  `no_wa` varchar(128)  NOT NULL,
-  `no_ktp` varchar(128)  NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `no_services` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `address` text NOT NULL,
+  `no_wa` varchar(128) NOT NULL,
+  `no_ktp` varchar(128) NOT NULL,
   `created` timestamp NULL DEFAULT NULL,
   `status_pasang` int NOT NULL DEFAULT '0',
   `status_bayar` int NOT NULL,
-  `foto_pasang` text ,
-  `lokasi_pasang` text ,
-  `bukti_bayar` text 
+  `foto_pasang` text,
+  `lokasi_pasang` text,
+  `bukti_bayar` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -100,8 +100,8 @@ INSERT INTO `customer` (`customer_id`, `name`, `no_services`, `email`, `address`
 CREATE TABLE `expenditure` (
   `expenditure_id` int NOT NULL,
   `date_payment` varchar(125) NOT NULL,
-  `nominal` varchar(125)  NOT NULL,
-  `remark` text  NOT NULL,
+  `nominal` varchar(125) NOT NULL,
+  `remark` text NOT NULL,
   `created` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -120,11 +120,11 @@ INSERT INTO `expenditure` (`expenditure_id`, `date_payment`, `nominal`, `remark`
 
 CREATE TABLE `income` (
   `income_id` int NOT NULL,
-  `date_payment` varchar(125)  NOT NULL,
-  `nominal` varchar(125)  NOT NULL,
-  `remark` text  NOT NULL,
+  `date_payment` varchar(125) NOT NULL,
+  `nominal` varchar(125) NOT NULL,
+  `remark` text NOT NULL,
   `created` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `income`
@@ -143,14 +143,14 @@ INSERT INTO `income` (`income_id`, `date_payment`, `nominal`, `remark`, `created
 
 CREATE TABLE `invoice` (
   `invoice_id` int NOT NULL,
-  `invoice` varchar(128)  NOT NULL,
-  `month` varchar(11)  NOT NULL,
+  `invoice` varchar(128) NOT NULL,
+  `month` varchar(11) NOT NULL,
   `year` int NOT NULL,
-  `no_services` varchar(128)  NOT NULL,
-  `status` varchar(128)  NOT NULL,
+  `no_services` varchar(128) NOT NULL,
+  `status` varchar(128) NOT NULL,
   `created` int NOT NULL,
   `date_payment` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `invoice`
@@ -169,15 +169,15 @@ INSERT INTO `invoice` (`invoice_id`, `invoice`, `month`, `year`, `no_services`, 
 
 CREATE TABLE `invoice_detail` (
   `detail_id` int NOT NULL,
-  `invoice_id` varchar(128)  NOT NULL,
-  `price` varchar(125)  NOT NULL,
-  `qty` varchar(125)  NOT NULL,
-  `disc` varchar(128)  NOT NULL,
-  `remark` text  NOT NULL,
-  `total` varchar(128)  NOT NULL,
+  `invoice_id` varchar(128) NOT NULL,
+  `price` varchar(125) NOT NULL,
+  `qty` varchar(125) NOT NULL,
+  `disc` varchar(128) NOT NULL,
+  `remark` text NOT NULL,
+  `total` varchar(128) NOT NULL,
   `item_id` int NOT NULL,
   `category_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `invoice_detail`
@@ -196,11 +196,11 @@ INSERT INTO `invoice_detail` (`detail_id`, `invoice_id`, `price`, `qty`, `disc`,
 
 CREATE TABLE `package_category` (
   `p_category_id` int NOT NULL,
-  `name` varchar(125)  NOT NULL,
-  `description` text  NOT NULL,
+  `name` varchar(125) NOT NULL,
+  `description` text NOT NULL,
   `date_created` int NOT NULL,
   `date_updated` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `package_category`
@@ -218,14 +218,14 @@ INSERT INTO `package_category` (`p_category_id`, `name`, `description`, `date_cr
 
 CREATE TABLE `package_item` (
   `p_item_id` int NOT NULL,
-  `name` varchar(125)  NOT NULL,
-  `price` varchar(125)  NOT NULL,
-  `picture` text  NOT NULL,
-  `description` text  NOT NULL,
+  `name` varchar(125) NOT NULL,
+  `price` varchar(125) NOT NULL,
+  `picture` text NOT NULL,
+  `description` text NOT NULL,
   `category_id` int NOT NULL,
   `date_created` int NOT NULL,
   `date_update` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `package_item`
@@ -252,7 +252,7 @@ CREATE TABLE `pengaduan` (
   `status` int NOT NULL,
   `foto_perbaikan` text,
   `lokasi_perbaikan` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `pengaduan`
@@ -273,14 +273,14 @@ CREATE TABLE `services` (
   `services_id` int NOT NULL,
   `item_id` int NOT NULL,
   `category_id` int NOT NULL,
-  `no_services` varchar(125)  NOT NULL,
-  `qty` varchar(128)  NOT NULL,
-  `price` varchar(128)  NOT NULL,
-  `disc` varchar(128)  DEFAULT NULL,
-  `total` varchar(128)  NOT NULL,
-  `remark` text  NOT NULL,
+  `no_services` varchar(125) NOT NULL,
+  `qty` varchar(128) NOT NULL,
+  `price` varchar(128) NOT NULL,
+  `disc` varchar(128) DEFAULT NULL,
+  `total` varchar(128) NOT NULL,
+  `remark` text NOT NULL,
   `services_create` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `services`
@@ -291,7 +291,8 @@ INSERT INTO `services` (`services_id`, `item_id`, `category_id`, `no_services`, 
 (6, 5, 3, '230806132222', '1', '296650', '0', '296650', '', 1691321040),
 (7, 7, 3, '230812031355', '1', '707350', '0', '707350', '', 1691802912),
 (8, 4, 3, '240928024259', '1', '280000', '0', '280000', '', 1727493436),
-(9, 3, 3, '250125030437', '1', '216730', '0', '216730', '', 1737774295);
+(9, 3, 3, '250125030437', '1', '216730', '0', '216730', '', 1737774295),
+(10, 3, 3, '250208012510', '1', '216730', '0', '216730', '', 1738989133);
 
 -- --------------------------------------------------------
 
@@ -507,7 +508,7 @@ ALTER TABLE `pengaduan`
 -- AUTO_INCREMENT untuk tabel `services`
 --
 ALTER TABLE `services`
-  MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

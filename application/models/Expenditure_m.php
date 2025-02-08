@@ -41,6 +41,14 @@ class expenditure_m extends CI_Model
         return $query;
     }
 
+    public function getExpenditureAll()
+    {
+        $this->db->select('*');
+        $this->db->from('expenditure');
+        $query = $this->db->get();
+        return $query;
+    }
+
 
     public function add($post)
     {

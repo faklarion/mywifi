@@ -109,6 +109,16 @@ class Bill_m extends CI_Model
         return $query;
     }
 
+    public function getTotalPendingInstall()
+    {
+        $this->db->select('*');
+        $this->db->from('services');
+        $this->db->join('customer', 'services.no_services = customer.no_services');
+        $this->db->where('customer.status_bayar', '0');
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function cekItem($p_item_id = null)
     {
         $this->db->select('*');
