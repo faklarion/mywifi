@@ -3,18 +3,26 @@
     <a href="" id="#addModal" data-toggle="modal" data-target="#addModal" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
 </div>
 
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <a href="<?= base_url('bill/generateMonthlyBills')?>" 
+        class="d-sm-inline-block btn btn-sm btn-info shadow-sm"
+        onclick="return confirm('Apakah Anda yakin ingin memperbarui tagihan?')">
+        <i class="fa fa-recycle fa-sm text-white-50"></i> Update Tagihan
+    </a>
+</div>
+
                     <form action="<?php echo site_url("bill/laporanperbulan");?>" method="get" target="_blank">
                         <label for="bulan">Pilih Bulan:</label>
                         <select id="bulan" name="bulan" class="form-control">
-                        <option value="01">Januari</option>
-                        <option value="02">Februari</option>
-                        <option value="03">Maret</option>
-                        <option value="04">April</option>
-                        <option value="05">Mei</option>
-                        <option value="06">Juni</option>
-                        <option value="07">Juli</option>
-                        <option value="08">Agustus</option>
-                        <option value="09">September</option>
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
                         <option value="10">Oktober</option>
                         <option value="11">November</option>
                         <option value="12">Desember</option>
@@ -143,15 +151,15 @@
                             <input type="hidden" name="invoice" value="<?= $invoice ?>">
                             <select class="form-control select2" style="width: 100%;" name="month" required>
                                 <option value="">-Pilih-</option>
-                                <option value="01">Januari</option>
-                                <option value="02">Februari</option>
-                                <option value="03">Maret</option>
-                                <option value="04">April</option>
-                                <option value="05">Mei</option>
-                                <option value="06">Juni</option>
-                                <option value="07">Juli</option>
-                                <option value="08">Agustus</option>
-                                <option value="09">September</option>
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
                                 <option value="10">Oktober</option>
                                 <option value="11">November</option>
                                 <option value="12">Desember</option>

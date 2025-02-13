@@ -32,7 +32,53 @@ class Bill extends CI_Controller
         }
     }
 
-
+    public function generateMonthlyBills()
+    {
+        $customers = $this->customer_m->getActiveCustomers()->result(); // Ambil semua pelanggan aktif
+        $month = date('m'); // Bulan saat ini
+        $year = date('Y'); // Tahun saat ini
+    
+        foreach ($customers as $customer) {
+            $no_services = $customer->no_services;
+            
+            // Cek apakah tagihan untuk periode ini sudah ada
+            $cekperiode = $this->bill_m->cekPeriode($no_services, $month, $year);
+            if ($cekperiode->num_rows() == 0) {
+                $invoice = time() . $no_services; // Generate nomor invoice unik
+                $Detail = $this->services_m->getServicesDetail($no_services)->result();
+    
+                $data = [
+                    'invoice' => $invoice,
+                    'no_services' => $no_services,
+                    'month' => $month,
+                    'year' => $year,
+                    'created' => date('Y-m-d H:i:s'),
+                ];
+                $this->bill_m->addBill($data); // Tambahkan tagihan
+    
+                $data2 = [];
+                foreach ($Detail as $row) {
+                    array_push($data2, [
+                        'invoice_id' => $invoice,
+                        'item_id' => $row->item_id,
+                        'category_id' => $row->category_id,
+                        'price' => $row->price,
+                        'qty' => $row->qty,
+                        'disc' => $row->disc,
+                        'remark' => $row->remark,
+                        'total' => $row->total,
+                    ]);
+                }
+                $this->bill_m->add_bill_detail($data2);
+            }
+        }
+    
+        // Tambahkan pesan sukses dan redirect ke halaman tagihan
+        $this->session->set_flashdata('success', 'Tagihan bulanan berhasil diperbarui!');
+        redirect('bill'); // Ganti dengan URL yang sesuai untuk daftar tagihan
+    }
+    
+    
 
     public function addBill()
     {

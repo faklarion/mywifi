@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 08 Feb 2025 pada 04.32
+-- Waktu pembuatan: 13 Feb 2025 pada 06.16
 -- Versi server: 8.0.30
 -- Versi PHP: 7.4.33
 
@@ -157,9 +157,11 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`invoice_id`, `invoice`, `month`, `year`, `no_services`, `status`, `created`, `date_payment`) VALUES
-(9, '230806001', '01', 2023, '230806132134', 'BELUM BAYAR', 1691321065, NULL),
-(10, '230806002', '02', 2023, '230806132222', 'SUDAH BAYAR', 1691321073, 1691324311),
-(11, '230812003', '07', 2023, '230812031355', 'SUDAH BAYAR', 1691802957, 1691802999);
+(23, '1739427318230806132222', '02', 2025, '230806132222', 'BELUM BAYAR', 1739427318, NULL),
+(24, '1739427318230812031355', '02', 2025, '230812031355', 'BELUM BAYAR', 1739427318, NULL),
+(25, '1739427318240928024259', '02', 2025, '240928024259', 'BELUM BAYAR', 1739427318, NULL),
+(26, '1739427318250120061526', '02', 2025, '250120061526', 'BELUM BAYAR', 1739427318, NULL),
+(27, '1739427335230806132134', '02', 2025, '230806132134', 'BELUM BAYAR', 1739427335, NULL);
 
 -- --------------------------------------------------------
 
@@ -184,9 +186,11 @@ CREATE TABLE `invoice_detail` (
 --
 
 INSERT INTO `invoice_detail` (`detail_id`, `invoice_id`, `price`, `qty`, `disc`, `remark`, `total`, `item_id`, `category_id`) VALUES
-(9, '230806001', '216730', '1', '0', '', '216730', 3, 3),
-(10, '230806002', '296650', '1', '0', '', '296650', 5, 3),
-(11, '230812003', '707350', '1', '0', '', '707350', 7, 3);
+(22, '1739427318230806132222', '296650', '1', '0', '', '296650', 5, 3),
+(23, '1739427318230812031355', '707350', '1', '0', '', '707350', 7, 3),
+(24, '1739427318240928024259', '280000', '1', '0', '', '280000', 4, 3),
+(25, '1739427318250120061526', '216730', '1', '0', '', '216730', 3, 3),
+(26, '1739427335230806132134', '216730', '1', '0', '', '216730', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -292,7 +296,8 @@ INSERT INTO `services` (`services_id`, `item_id`, `category_id`, `no_services`, 
 (7, 7, 3, '230812031355', '1', '707350', '0', '707350', '', 1691802912),
 (8, 4, 3, '240928024259', '1', '280000', '0', '280000', '', 1727493436),
 (9, 3, 3, '250125030437', '1', '216730', '0', '216730', '', 1737774295),
-(10, 3, 3, '250208012510', '1', '216730', '0', '216730', '', 1738989133);
+(10, 3, 3, '250208012510', '1', '216730', '0', '216730', '', 1738989133),
+(11, 3, 3, '250120061526', '1', '216730', '0', '216730', '', 1739427226);
 
 -- --------------------------------------------------------
 
@@ -478,13 +483,13 @@ ALTER TABLE `income`
 -- AUTO_INCREMENT untuk tabel `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `invoice_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
-  MODIFY `detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `package_category`
@@ -508,7 +513,7 @@ ALTER TABLE `pengaduan`
 -- AUTO_INCREMENT untuk tabel `services`
 --
 ALTER TABLE `services`
-  MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `services_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

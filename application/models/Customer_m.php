@@ -25,6 +25,13 @@ class Customer_m extends CI_Model
     }
 
 
+    function getActiveCustomers()
+    {
+        $this->db->select('*');
+        $this->db->where('status_pasang', 1);
+        $this->db->where('status_bayar', 1);
+        return $this->db->get('customer');
+    }
 
     function get_all()
     {

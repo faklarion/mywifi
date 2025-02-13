@@ -23,7 +23,7 @@ for ($i = 1; $i <= 12; $i++) {
     // Tagihan Belum Dibayar
     $this->db->select('SUM(price * qty) AS total');
     $this->db->from('invoice_detail');
-    $this->db->join('invoice', 'invoice.invoice_id = invoice_detail.invoice_id');
+    $this->db->join('invoice', 'invoice_detail.invoice_id = invoice.invoice');
     $this->db->where('invoice.month', $i);
     $this->db->where('invoice.year', $tahun);
     $this->db->where('invoice.status', 'BELUM BAYAR');
@@ -33,7 +33,7 @@ for ($i = 1; $i <= 12; $i++) {
     // Tagihan Sudah Dibayar
     $this->db->select('SUM(price * qty) AS total');
     $this->db->from('invoice_detail');
-    $this->db->join('invoice', 'invoice.invoice_id = invoice_detail.invoice_id');
+    $this->db->join('invoice', 'invoice_detail.invoice_id = invoice.invoice');
     $this->db->where('invoice.month', $i);
     $this->db->where('invoice.year', $tahun);
     $this->db->where('invoice.status', 'SUDAH BAYAR');
