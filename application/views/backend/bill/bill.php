@@ -103,15 +103,16 @@
                                 <?= $data->month == '11' ? 'November' : '' ?>
                                 <?= $data->month == '12' ? 'Desember' : '' ?>
                                 <?= $data->year ?></td>
-                            <td style="font-weight: bold;text-align: center"> <?php $query = "SELECT *
-                                    FROM `invoice_detail`
-                                        WHERE `invoice_detail`.`invoice_id` =  $data->invoice";
-                                                                                $querying = $this->db->query($query)->result(); ?>
-                                <?php $subtotal = 0;
-                                foreach ($querying as  $dataa)
-                                    $subtotal += (int) $dataa->total;
+                            <td style="font-weight: bold;text-align: center"> 
+                                <?php 
+                                    $tagihan = $this->bill_m->getEditInvoice($data->invoice)->result();
+                                    $subtotal = 0;
+                                    foreach ($tagihan as $dt) {
+                                        $subtotal += (int) $dt->total;
+                                    }
+                                    echo indo_currency($subtotal);
                                 ?>
-                                <?= indo_currency($subtotal) ?></td>
+                            </td>
                             <?php if ($data->status == 'SUDAH BAYAR') { ?>
                                 <td style="text-align: center; font-weight:bold; color:green"> <?= $data->status  ?></td>
                             <?php } ?>
